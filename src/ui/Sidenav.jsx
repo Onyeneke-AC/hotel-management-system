@@ -3,9 +3,9 @@ import Logo from "./Logo";
 import MainNav from "./MainNav";
 
 const StyledSidenav = styled.aside`
-  background-color: var(--color-grey-0);
+  background-color: var(--clr-body-grey);
   padding: 3.2rem 2.4rem;
-  border-right: 1px solid var(--color-grey-100);
+  border-right: 1px solid var(--clr-text-grey);
   grid-row: 1/-1;
   display: flex;
   flex-direction: column;

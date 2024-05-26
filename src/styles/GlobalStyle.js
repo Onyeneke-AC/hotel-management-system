@@ -3,11 +3,11 @@ import { createGlobalStyle } from "styled-components";
 const GlobalStyles = createGlobalStyle`
 :root {
 
-    --clr-dark: #000000;
+    /* --clr-dark: #000000;
     --clr-light-dark: #111111;
     --clr-light: #ffffff;
 
-    --clr-body-grey: #2e2e2e;
+    --clr-body-grey: #202020;
     --clr-text-grey: #b0b0b0;
 
     --clr-icon: #00fff5;
@@ -15,13 +15,10 @@ const GlobalStyles = createGlobalStyle`
     --clr-button-green: #20744A;
     --clr-button-green-hover: #1b5e3a;
     --clr-button-blue: #00adb5;
-    --clr-button-green-hover: ##418c8f;
+    --clr-button-green-hover: ##418c8f; */
 
-    --clr-red-100: #fee2e2;
-    --clr-red-700: #b91c1c;
-    --clr-red-800: #991b1b;
-
-    /* --color-grey-0: #18212f;
+    
+    --color-grey-0: #18212f;
     --color-grey-50: #111827;
     --color-grey-100: #1f2937;
     --color-grey-200: #374151;
@@ -42,9 +39,12 @@ const GlobalStyles = createGlobalStyle`
     --color-silver-100: #374151;
     --color-silver-700: #f3f4f6;
     --color-indigo-100: #3730a3;
-    --color-indigo-700: #e0e7ff;*/
-
-
+    --color-indigo-700: #e0e7ff;
+    
+    --clr-red-100: #fee2e2;
+    --clr-red-700: #b91c1c;
+    --clr-red-800: #991b1b;
+    
     --backdrop-color: rgba(0, 0, 0, 0.3);
 
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
@@ -55,14 +55,14 @@ const GlobalStyles = createGlobalStyle`
     --image-opacity: 90%;
 
     // Indigo
-    /* --color-brand-50: #eef2ff;
+    --color-brand-50: #eef2ff;
     --color-brand-100: #e0e7ff;
     --color-brand-200: #c7d2fe;
     --color-brand-500: #6366f1;
     --color-brand-600: #4f46e5;
     --color-brand-700: #4338ca;
     --color-brand-800: #3730a3;
-    --color-brand-900: #312e81; */
+    --color-brand-900: #312e81;
 
     --border-radius-tiny: 3px;
     --border-radius-sm: 5px;
