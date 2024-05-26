@@ -84,7 +84,7 @@ html {
 
 body {
     font-family: "Poppins", sans-serif;
-    color: var(--clr-dark);
+    color: var(--color-grey-700);
 
     min-height: 100vh;
     line-height: 1.5;
