@@ -70,13 +70,32 @@ function Table({ columns, children }) {
 
 function Header({ children }) {
   const { columns } = useContext(TableContext);
+
+  return (
+    <StyledHeader role="row" as="header" columns={columns}>
+      {children}
+    </StyledHeader>
+  );
 }
 
-function Row() {}
+function Row({ children }) {
+  const { columns } = useContext(TableContext);
+  return (
+    <StyledRow role="row" columns={columns}>
+      {children}
+    </StyledRow>
+  );
+}
 
-function Body() {}
+function Body({ data, render, empty }) {
+  if (!data.length) return <Empty>{empty}</Empty>;
+
+  return <StyledBody>{data.map(render)}</StyledBody>;
+}
 
 Table.Header = Header;
 Table.Row = Row;
 Table.Body = Body;
 Table.Footer = Footer;
+
+export default Table;
