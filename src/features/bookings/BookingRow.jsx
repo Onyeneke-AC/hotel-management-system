@@ -8,14 +8,14 @@ import { formatCurrency } from "../../utils/helpers";
 import { formatDistanceFromNow } from "../../utils/helpers";
 import Menus from "../../ui/Menus";
 import {
-  HiArrowDownOnSquare,
-  HiArrowUpOnSquare,
+  //   HiArrowDownOnSquare,
+  //   HiArrowUpOnSquare,
   HiEye,
-  HiTrash,
+  //   HiTrash,
 } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
 import Modal from "../../ui/Modal";
-import ConfirmDelete from "../../ui/ConfirmDelete";
+// import ConfirmDelete from "../../ui/ConfirmDelete";
 
 const Room = styled.div`
   font-size: 1.6rem;
@@ -101,14 +101,14 @@ function BookingRow({
               See Details
             </Menus.Button>
 
-            {status === "unconfirmed" && (
+            {/* {status === "unconfirmed" && (
               <Menus.Button
                 icon={<HiArrowDownOnSquare />}
                 onClick={() => navigate(`/checkin/${bookingId}`)}
               >
                 Check in
               </Menus.Button>
-            )}
+            )} */}
 
             {/* {status === "checked-in" && (
               <Menus.Button
@@ -121,9 +121,9 @@ function BookingRow({
                 Check out
               </Menus.Button>
             )} */}
-            <Modal.Open opens="delete">
+            {/* <Modal.Open opens="delete">
               <Menus.Button icon={<HiTrash />}>Delete Booking</Menus.Button>
-            </Modal.Open>
+        </Modal.Open>*/}
           </Menus.List>
         </Menus.Menu>
 
