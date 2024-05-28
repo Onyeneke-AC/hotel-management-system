@@ -47,14 +47,14 @@ const Amount = styled.div`
 
 function BookingRow({
   booking: {
-    id: bookingId,
-    startDate,
-    endDate,
-    numNights,
-    status,
+    roomBookings: { roomNumber, numNights, startDate, endDate },
     amount,
+    isPaid,
+    id,
+    receptionist,
+    customerId,
     customer: { firstName, email },
-    room: { name: roomName },
+    status,
   },
 }) {
   // const navigate = useNavigate();
@@ -67,7 +67,7 @@ function BookingRow({
 
   return (
     <Table.Row>
-      <Room>{roomName}</Room>
+      <Room>{roomNumber}</Room>
 
       <Stacked>
         <span>{firstName}</span>
