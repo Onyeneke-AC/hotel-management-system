@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Table from "../../ui/Table";
 import { HiEllipsisVertical } from "react-icons/hi2";
+import { formatCurrency } from "../../utils/helpers";
 
 const Room = styled.div`
   font-size: 1.6rem;
@@ -31,7 +32,7 @@ function RoomRow({ room }) {
     <Table.Row>
       <Room>{name}</Room>
       <Room>{category}</Room>
-      <Price>{price}</Price>
+      <Price>{formatCurrency(price)}</Price>
       <div>{isBooked}</div>
       <div>{isCheckedIn}</div>
       <div>
