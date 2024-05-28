@@ -6,16 +6,16 @@ import Table from "../../ui/Table";
 
 import { formatCurrency } from "../../utils/helpers";
 import { formatDistanceFromNow } from "../../utils/helpers";
-import Menus from "../../ui/Menus";
+// import Menus from "../../ui/Menus";
 import {
   HiEllipsisVertical,
   //   HiArrowDownOnSquare,
   //   HiArrowUpOnSquare,
-  HiEye,
+  // HiEye,
   //   HiTrash,
 } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
-import Modal from "../../ui/Modal";
+// import Modal from "../../ui/Modal";
 // import ConfirmDelete from "../../ui/ConfirmDelete";
 
 const Room = styled.div`
@@ -52,12 +52,12 @@ function BookingRow({
     endDate,
     numNights,
     status,
-    totalPrice,
+    amount,
     customer: { firstName, email },
     room: { name: roomName },
   },
 }) {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const statusToTagName = {
     unconfirmed: "blue",
@@ -76,21 +76,20 @@ function BookingRow({
 
       <Stacked>
         <span>
-          {startDate} - {endDate}
-          {/* {isToday(new Date(startDate))
+          {isToday(new Date(startDate))
             ? "Today"
             : formatDistanceFromNow(startDate)}{" "}
-          &rarr; {numNights} night stay */}
+          &rarr; {numNights} night stay
         </span>
-        {/* <span>
+        <span>
           {format(new Date(startDate), "MMM dd yyyy")} &mdash;{" "}
           {format(new Date(endDate), "MMM dd yyyy")}
-        </span> */}
+        </span>
       </Stacked>
 
       <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
 
-      <Amount>{formatCurrency(totalPrice)}</Amount>
+      <Amount>{formatCurrency(amount)}</Amount>
 
       <HiEllipsisVertical />
       {/* <Modal>
