@@ -1,6 +1,8 @@
 import styled from "styled-components";
+import Table from "../../ui/Table";
+import { HiEllipsisVertical } from "react-icons/hi2";
 
-const Cabin = styled.div`
+const Room = styled.div`
   font-size: 1.6rem;
   font-weight: 600;
   color: var(--color-grey-600);
@@ -12,8 +14,31 @@ const Price = styled.div`
   font-weight: 600;
 `;
 
-function RoomRow() {
-  return <div></div>;
+function RoomRow({ room }) {
+  const {
+    id,
+    name,
+    category,
+    description,
+    price,
+    isBooked,
+    isClean,
+    isCheckedIn,
+    customerId,
+  } = room;
+
+  return (
+    <Table.Row>
+      <Room>{name}</Room>
+      <Room>{category}</Room>
+      <Price>{price}</Price>
+      <div>{isBooked}</div>
+      <div>{isCheckedIn}</div>
+      <div>
+        <HiEllipsisVertical />
+      </div>
+    </Table.Row>
+  );
 }
 
 export default RoomRow;
