@@ -5,29 +5,32 @@ import Empty from "../../ui/Empty";
 const bookings = [
   {
     roomNumber: "23",
-    guest: "Anna baby",
     numNights: "3",
     startDate: "01-04-2025",
-    amount: "$300",
     endDate: "04-04-2025",
+    amount: "$300",
     isPaid: false,
     roomId: 1,
     customerId: 1,
+    customer: { firstName: "Anna baby", email: "anthony@flask.com" },
+    room: { name: "101" },
+    status: "checked-in",
   },
   {
     roomNumber: "23",
-    guest: "Gold",
     numNights: "3",
     startDate: "01-04-2025",
-    amount: "$300",
     endDate: "04-04-2025",
+    amount: "$300",
     isPaid: false,
     roomId: 2,
     customerId: 2,
+    customer: { firstName: "Gold", email: "gold@flask.com" },
+    room: { name: "102" },
+    status: "checked-out",
   },
   {
     roomNumber: "23",
-    guest: "Teni",
     numNights: "3",
     startDate: "01-04-2025",
     amount: "$300",
@@ -35,6 +38,9 @@ const bookings = [
     isPaid: false,
     roomId: 3,
     customerId: 3,
+    customer: { firstName: "Teni", email: "teni@flask.com" },
+    room: { name: "103" },
+    status: "unconfirmed",
   },
 ];
 
@@ -54,7 +60,9 @@ function BookingTable() {
 
       <Table.Body
         data={bookings}
-        render={(booking) => <BookingRow key={booking.id} booking={booking} />}
+        render={(booking) => (
+          <BookingRow key={booking.customerId} booking={booking} />
+        )}
       />
     </Table>
   );
