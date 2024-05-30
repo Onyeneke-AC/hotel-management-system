@@ -1,8 +1,9 @@
+import Button from "../../ui/Button";
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 
-function CreateRoomForm() {
+function CreateRoomForm({ onCloseModal }) {
   return (
     <Form>
       <FormRow label="Room Name">
@@ -21,8 +22,15 @@ function CreateRoomForm() {
         <Input type="number" id="price" />
       </FormRow>
 
-      <FormRow label="Room Name">
-        <Input type="text" id="name" />
+      <FormRow>
+        <Button
+          type="reset"
+          variation="secondary"
+          onClick={() => onCloseModal?.()}
+        >
+          Cancel
+        </Button>
+        <Button>Add New Room</Button>
       </FormRow>
     </Form>
   );
