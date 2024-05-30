@@ -9,20 +9,16 @@ function CreateRoomForm() {
         <Input type="text" id="name" />
       </FormRow>
 
-      <FormRow label="Room Name">
-        <Input type="text" id="name" />
+      <FormRow label="Category">
+        <Input type="text" id="category" />
       </FormRow>
 
-      <FormRow label="Room Name">
-        <Input type="text" id="name" />
+      <FormRow label="Description">
+        <Input type="text" id="description" />
       </FormRow>
 
-      <FormRow label="Room Name">
-        <Input type="text" id="name" />
-      </FormRow>
-
-      <FormRow label="Room Name">
-        <Input type="text" id="name" />
+      <FormRow label="Price">
+        <Input type="number" id="price" />
       </FormRow>
 
       <FormRow label="Room Name">
