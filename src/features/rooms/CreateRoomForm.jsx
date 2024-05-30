@@ -5,7 +5,7 @@ import Input from "../../ui/Input";
 
 function CreateRoomForm({ onCloseModal }) {
   return (
-    <Form>
+    <Form type={onCloseModal ? "modal" : "regular"}>
       <FormRow label="Room Name">
         <Input type="text" id="name" />
       </FormRow>
