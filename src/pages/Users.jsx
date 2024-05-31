@@ -1,5 +1,11 @@
+import Heading from "../ui/Heading";
+
 function Users() {
-  return <div>Users</div>;
+  return (
+    <>
+      <Heading as="h1">Create a New User</Heading>
+    </>
+  );
 }
 
 export default Users;
