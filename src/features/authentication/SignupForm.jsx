@@ -1,3 +1,4 @@
+import Button from "../../ui/Button";
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
@@ -19,6 +20,13 @@ function SignupForm() {
 
       <FormRow label="Repeat Password">
         <Input type="password" id="passwordConfirm" />
+      </FormRow>
+
+      <FormRow>
+        <Button variation="secondary" type="reset">
+          Cancel
+        </Button>
+        <Button>Create new user</Button>
       </FormRow>
     </Form>
   );
