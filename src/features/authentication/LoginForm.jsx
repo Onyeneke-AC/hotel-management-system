@@ -16,7 +16,7 @@ function LoginForm() {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <FormRow label="Email address">
+      <FormRow type="vertical" label="Email address">
         <Input
           type="email"
           id="email"
@@ -35,7 +35,7 @@ function LoginForm() {
           onChange={(e) => setPassword(e.target.value)}
         />
       </FormRow>
-      <FormRow>
+      <FormRow type="vertical">
         <Button size="large">Log In</Button>
       </FormRow>
     </Form>

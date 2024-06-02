@@ -50,18 +50,18 @@ const Error = styled.span`
   color: var(--color-red-700);
 `;
 
-StyledFormRow.defaultProps = {
-  type: "horizontal",
-};
-
-function FormRow({ label, error, children }) {
+function FormRow({ label, error, children, type }) {
   return (
-    <StyledFormRow>
+    <StyledFormRow type={type}>
       {label && <Label>{label}</Label>}
       {children}
       {error && <Error>{error}</Error>}
     </StyledFormRow>
   );
 }
+
+StyledFormRow.defaultProps = {
+  type: "horizontal",
+};
 
 export default FormRow;
