@@ -18,7 +18,7 @@ function CreateBookingForm({ onCloseModal }) {
         <Input type="number" id="amount" />
       </FormRow>
 
-      <FormRow label="Room Number">
+      <FormRow label="Room Name">
         <Input type="text" id="roomNumber" />
       </FormRow>
 

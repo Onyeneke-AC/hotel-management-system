@@ -53,7 +53,7 @@ function BookingRow({
     amount,
     roomName,
     receptionist,
-    customer: { firstName, email },
+    customer: { firstName, plateNumber },
   },
 }) {
   // const navigate = useNavigate();
@@ -69,7 +69,7 @@ function BookingRow({
 
       <Stacked>
         <span>{firstName}</span>
-        <span>{email}</span>
+        <span>{plateNumber}</span>
       </Stacked>
 
       <Stacked>
