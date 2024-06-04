@@ -9,6 +9,8 @@ import { formatDistanceFromNow } from "../../utils/helpers";
 // import Menus from "../../ui/Menus";
 import {
   HiEllipsisVertical,
+  // HiOutlineCheck,
+  // HiOutlineXMark,
   //   HiArrowDownOnSquare,
   //   HiArrowUpOnSquare,
   // HiEye,
@@ -47,27 +49,23 @@ const Amount = styled.div`
 
 function BookingRow({
   booking: {
-    roomBookings: { roomNumber, numNights, startDate, endDate },
+    roomBookings: { checkedIn, numberOfNights, startDate, endDate },
     amount,
-    isPaid,
-    id,
+    roomName,
     receptionist,
-    customerId,
     customer: { firstName, email },
-    status,
   },
 }) {
   // const navigate = useNavigate();
 
   const statusToTagName = {
-    unconfirmed: "blue",
-    "checked-in": "green",
-    "checked-out": "silver",
+    true: "green",
+    false: "silver",
   };
 
   return (
     <Table.Row>
-      <Room>{roomNumber}</Room>
+      <Room>{roomName}</Room>
 
       <Stacked>
         <span>{firstName}</span>
@@ -79,7 +77,7 @@ function BookingRow({
           {isToday(new Date(startDate))
             ? "Today"
             : formatDistanceFromNow(startDate)}{" "}
-          &rarr; {numNights} night stay
+          &rarr; {numberOfNights} night stay
         </span>
         <span>
           {format(new Date(startDate), "MMM dd yyyy")} &mdash;{" "}
@@ -87,7 +85,10 @@ function BookingRow({
         </span>
       </Stacked>
 
-      <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
+      <Tag type={statusToTagName[checkedIn]} marks="mark">
+        {/* {checkedIn === true ? <HiOutlineCheck /> : <HiOutlineXMark />}{" "} */}
+        <span style={{ fontSize: "1rem" }}>{receptionist}</span>
+      </Tag>
 
       <Amount>{formatCurrency(amount)}</Amount>
 

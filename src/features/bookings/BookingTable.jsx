@@ -4,49 +4,46 @@ import Empty from "../../ui/Empty";
 
 const bookings = [
   {
+    customerID: 1,
+    roomName: "001",
+    receptionist: "Anna baby",
+    amount: 300,
+    isPaid: false,
+    customer: { firstName: "Anna baby", email: "anthony@flask.com" },
     roomBookings: {
-      roomNumber: "002",
-      numNights: "2",
+      checkedIn: true,
+      numberOfNights: "2",
       startDate: "2024-06-16T00:00:00",
       endDate: "2024-06-18T00:00:00",
     },
-    amount: 300,
-    isPaid: false,
-    id: 1,
-    receptionist: "Anna baby",
-    customerId: 1,
-    customer: { firstName: "Anna baby", email: "anthony@flask.com" },
-    status: "checked-in",
   },
   {
     roomBookings: {
-      roomNumber: "003",
-      numNights: "20",
+      checkedIn: false,
+      numberOfNights: "20",
       startDate: "2024-06-20T00:00:00",
       endDate: "2024-07-18T00:00:00",
     },
+    roomName: "002",
     amount: 500,
-    isPaid: false,
-    id: 2,
+    isPaid: true,
     receptionist: "Osi baby",
-    customerId: 2,
+    customerID: 2,
     customer: { firstName: "Gold", email: "gold@flask.com" },
-    status: "checked-out",
   },
   {
     roomBookings: {
-      roomNumber: "023",
-      numNights: "10",
+      checkedIn: true,
+      numberOfNights: "10",
       startDate: "2024-06-18T00:00:00",
       endDate: "2024-06-24T00:00:00",
     },
+    roomName: "003",
     amount: 50,
     isPaid: false,
-    id: 3,
     receptionist: "Erica baby",
-    customerId: 3,
+    customerID: 3,
     customer: { firstName: "Teni", email: "teni@flask.com" },
-    status: "unconfirmed",
   },
 ];
 
@@ -59,7 +56,7 @@ function BookingTable() {
         <div>Room</div>
         <div>Guest</div>
         <div>Dates</div>
-        <div>Status</div>
+        <div>Checked In</div>
         <div>Amount</div>
         <div></div>
       </Table.Header>
@@ -67,7 +64,7 @@ function BookingTable() {
       <Table.Body
         data={bookings}
         render={(booking) => (
-          <BookingRow key={booking.customerId} booking={booking} />
+          <BookingRow key={booking.customerID} booking={booking} />
         )}
       />
     </Table>

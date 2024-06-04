@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const Tag = styled.span`
   width: fit-content;
@@ -7,6 +7,16 @@ const Tag = styled.span`
   font-weight: 600;
   padding: 0.4rem 1.2rem;
   border-radius: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  ${(props) =>
+    props.marks === "mark" &&
+    css`
+      font-size: 1.5rem;
+      font-weight: 900;
+    `}
 
   color: var(--color-${(props) => props.type}-700);
   background-color: var(--color-${(props) => props.type}-100);
