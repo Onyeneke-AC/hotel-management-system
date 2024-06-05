@@ -2,6 +2,6 @@ export async function getRooms() {}
 
 export async function createRooms(newRoom) {}
 
-export async function editRoom(id, roomUpdate) {}
+export async function editRoom(newRoomData, id) {}
 
 export async function deleteRoom(id) {}
