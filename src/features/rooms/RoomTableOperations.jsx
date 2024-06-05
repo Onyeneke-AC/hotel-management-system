@@ -1,19 +1,20 @@
 import Filter from "../../ui/Filter";
 import TableOperations from "../../ui/TableOperations";
 
-function BookingTableOperations() {
+function RoomTableOperations() {
   return (
     <TableOperations>
       <Filter
         filterField="status"
         options={[
           { value: "all", label: "All" },
+          { value: "checked-out", label: "Checked out" },
           { value: "checked-in", label: "Checked in" },
-          { value: "free", label: "Unoccupied" },
+          { value: "unconfirmed", label: "Unconfirmed" },
         ]}
       />
     </TableOperations>
   );
 }
 
-export default BookingTableOperations;
+export default RoomTableOperations;
