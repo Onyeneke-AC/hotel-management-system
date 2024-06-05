@@ -1,6 +1,8 @@
+import { useSearchParams } from "react-router-dom";
 import Menus from "../../ui/Menus";
 import Table from "../../ui/Table";
 import RoomRow from "./RoomRow";
+import Empty from "../../ui/Empty";
 
 const rooms = [
   {
@@ -9,7 +11,7 @@ const rooms = [
     Category: "Standard Luxury",
     Description: "1 bedroom standard",
     Price: 20000,
-    Status: "checked-in",
+    status: "checked-in",
   },
   {
     RoomBookings: { RoomId: 2 },
@@ -17,7 +19,7 @@ const rooms = [
     Category: "Deluxe Luxury",
     Description: "2 bedroom standard",
     Price: 25000,
-    Status: "unconfirmed",
+    status: "unconfirmed",
   },
   {
     RoomBookings: { RoomId: 3 },
@@ -25,7 +27,7 @@ const rooms = [
     Category: "Standard Aparte",
     Description: "3 bedroom standard",
     Price: 30000,
-    Status: "checked-out",
+    status: "checked-out",
   },
   {
     RoomBookings: { RoomId: 4 },
@@ -33,7 +35,7 @@ const rooms = [
     Category: "Standard Luxury",
     Description: "1 bedroom standard",
     Price: 35000,
-    Status: "unconfirmed",
+    status: "unconfirmed",
   },
   {
     RoomBookings: { RoomId: 5 },
@@ -41,11 +43,29 @@ const rooms = [
     Category: "Deluxe Aparte Luxury",
     Description: "1 bedroom standard",
     Price: 40000,
-    Status: "checked-in",
+    status: "checked-in",
   },
 ];
 
 function RoomTable() {
+  const [searchParams] = useSearchParams();
+
+  if (!rooms.length) return <Empty resourceName="rooms" />;
+
+  const filterValue = searchParams.get("status") || "all";
+
+  let filteredRooms;
+
+  if (filterValue === "all") filteredRooms = rooms;
+
+  if (filterValue === "checked-out")
+    filteredRooms = rooms.filter((room) => room.status === "checked-out");
+
+  if (filterValue === "checked-in")
+    filteredRooms = rooms.filter((room) => room.status === "checked-in");
+
+  if (filterValue === "unconfirmed")
+    filteredRooms = rooms.filter((room) => room.status === "unconfirmed");
   return (
     <Menus>
       <Table columns="0.6fr 1.8fr 1fr 1.8fr 1fr 0.6fr">
@@ -58,7 +78,7 @@ function RoomTable() {
           <div></div>
         </Table.Header>
         <Table.Body
-          data={rooms}
+          data={filteredRooms}
           render={(room) => (
             <RoomRow key={room.RoomBookings.RoomId} room={room} />
           )}

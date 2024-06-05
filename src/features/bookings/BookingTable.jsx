@@ -1,6 +1,7 @@
 import BookingRow from "./BookingRow";
 import Table from "../../ui/Table";
 import Empty from "../../ui/Empty";
+import { useSearchParams } from "react-router-dom";
 
 const bookings = [
   {
@@ -48,7 +49,25 @@ const bookings = [
 ];
 
 function BookingTable() {
+  const [searchParams] = useSearchParams();
+
   if (!bookings.length) return <Empty resourceName="bookings" />;
+
+  const filterValue = searchParams.get("status") || "all";
+
+  let filteredBookings;
+
+  if (filterValue === "all") filteredBookings = bookings;
+
+  if (filterValue === "checked-in")
+    filteredBookings = bookings.filter(
+      (booking) => booking.roomBookings.checkedIn === true
+    );
+
+  if (filterValue === "free")
+    filteredBookings = bookings.filter(
+      (booking) => booking.roomBookings.checkedIn === false
+    );
 
   return (
     <Table columns="0.6fr 2fr 2.4fr 1.4fr 1fr 3.2rem">
@@ -62,7 +81,7 @@ function BookingTable() {
       </Table.Header>
 
       <Table.Body
-        data={bookings}
+        data={filteredBookings}
         render={(booking) => (
           <BookingRow key={booking.customerID} booking={booking} />
         )}

@@ -23,7 +23,7 @@ const statusToTagName = {
 };
 
 function RoomRow({ room }) {
-  const { Name, Category, Description, Price, Status } = room;
+  const { Name, Category, Description, Price, status } = room;
 
   return (
     <Table.Row>
@@ -31,7 +31,7 @@ function RoomRow({ room }) {
       <Room>{Category}</Room>
       <StyledPrice>{formatCurrency(Price)}</StyledPrice>
       <div>{Description}</div>
-      <Tag type={statusToTagName[Status]}>{Status.replace("-", " ")}</Tag>
+      <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
       <div>
         <HiEllipsisVertical />
       </div>
