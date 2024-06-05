@@ -13,7 +13,7 @@ import Settings from "./pages/Settings";
 import Login from "./pages/Login";
 import PageNotFound from "./pages/PageNotFound";
 import { Toaster } from "react-hot-toast";
-// import Account from "./pages/Account";
+import Account from "./pages/Account";
 
 function App() {
   const queryClient = new QueryClient({
@@ -39,7 +39,7 @@ function App() {
             <Route path="rooms" element={<Rooms />} />
             <Route path="users" element={<Users />} />
             <Route path="settings" element={<Settings />} />
-            {/* <Route path="account" element={<Account />} /> */}
+            <Route path="account" element={<Account />} />
           </Route>
           <Route path="login" element={<Login />} />
           <Route path="*" element={<PageNotFound />} />
