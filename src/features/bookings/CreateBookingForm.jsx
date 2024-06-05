@@ -2,6 +2,7 @@ import Button from "../../ui/Button";
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
+import Row from "../../ui/Row";
 
 function CreateBookingForm({ onCloseModal }) {
   return (
@@ -29,6 +30,8 @@ function CreateBookingForm({ onCloseModal }) {
       <FormRow label="Number of Nights">
         <Input type="number" id="numNights" />
       </FormRow>
+
+      <Row></Row>
 
       <FormRow>
         <Button
