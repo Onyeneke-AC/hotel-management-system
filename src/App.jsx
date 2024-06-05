@@ -9,11 +9,11 @@ import Booking from "./pages/Booking";
 import Checkin from "./pages/Checkin";
 import Rooms from "./pages/Rooms";
 import Users from "./pages/Users";
-import Settings from "./pages/Settings";
 import Login from "./pages/Login";
 import PageNotFound from "./pages/PageNotFound";
 import { Toaster } from "react-hot-toast";
 import Account from "./pages/Account";
+import Guests from "./pages/Guests";
 
 function App() {
   const queryClient = new QueryClient({
@@ -38,7 +38,7 @@ function App() {
             <Route path="checkin/:bookingId" element={<Checkin />} />
             <Route path="rooms" element={<Rooms />} />
             <Route path="users" element={<Users />} />
-            <Route path="settings" element={<Settings />} />
+            <Route path="guests" element={<Guests />} />
             <Route path="account" element={<Account />} />
           </Route>
           <Route path="login" element={<Login />} />
