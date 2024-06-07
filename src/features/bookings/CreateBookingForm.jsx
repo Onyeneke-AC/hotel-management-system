@@ -6,7 +6,7 @@ import Heading from "../../ui/Heading";
 import Input from "../../ui/Input";
 
 const BookingHeader = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 `;
 
 function CreateBookingForm({ onCloseModal }) {
