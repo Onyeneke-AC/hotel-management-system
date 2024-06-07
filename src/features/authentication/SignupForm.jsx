@@ -3,9 +3,9 @@ import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 
-function SignupForm() {
+function SignupForm({ onCloseModal }) {
   return (
-    <Form>
+    <Form type={onCloseModal ? "modal" : "regular"}>
       <FormRow label="Full name">
         <Input type="text" id="fullName" />
       </FormRow>

@@ -1,6 +1,6 @@
 import AddGuest from "../features/guests/AddGuest";
 import GuestTable from "../features/guests/GuestTable";
-import ButtonGroup from "../ui/ButtonGroup";
+import GuestTableOperations from "../features/guests/GuestTableOperations";
 import Heading from "../ui/Heading";
 import Row from "../ui/Row";
 
@@ -9,12 +9,11 @@ function Guests() {
     <>
       <Row type="horizontal">
         <Heading as="h1">All guests</Heading>
+        <GuestTableOperations />
       </Row>
       <Row>
         <GuestTable />
-        <ButtonGroup>
-          <AddGuest />
-        </ButtonGroup>
+        <AddGuest />
       </Row>
     </>
   );

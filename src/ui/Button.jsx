@@ -4,8 +4,8 @@ const sizes = {
   small: css`
     font-size: 1.2rem;
     padding: 0.4rem 0.8rem;
-    font-weight: 600;
     text-transform: uppercase;
+    font-weight: 600;
     text-align: center;
   `,
   medium: css`
@@ -30,16 +30,16 @@ const variations = {
     }
   `,
   secondary: css`
-    color: var(--color-brand-600);
-    background: var(--color-brand-0);
-    border: 1px solid var(--color-brand-200);
+    color: var(--color-grey-600);
+    background: var(--color-grey-0);
+    border: 1px solid var(--color-grey-200);
 
     &:hover {
-      background-color: var(--color-brand-50);
+      background-color: var(--color-grey-50);
     }
   `,
   danger: css`
-    color: var(--color-red-50);
+    color: var(--color-red-100);
     background-color: var(--color-red-700);
 
     &:hover {
@@ -57,8 +57,8 @@ const Button = styled.button`
 `;
 
 Button.defaultProps = {
-  size: "medium",
   variation: "primary",
+  size: "medium",
 };
 
 export default Button;

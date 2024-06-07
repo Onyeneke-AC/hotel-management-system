@@ -10,7 +10,7 @@ const bookings = [
     receptionist: "Anna baby",
     amount: 300,
     isPaid: false,
-    customer: { firstName: "Anna baby", plateNumber: "CDEE12" },
+    customer: { firstName: "Anna baby", email: "anthony@gmail.com" },
     roomBookings: {
       checkedIn: true,
       numberOfNights: "2",
@@ -30,7 +30,7 @@ const bookings = [
     isPaid: true,
     receptionist: "Osi baby",
     customerID: 2,
-    customer: { firstName: "Gold", plateNumber: "gkvkEE12" },
+    customer: { firstName: "Gold", email: "gkv@hgjh.com" },
   },
   {
     roomBookings: {
@@ -44,7 +44,7 @@ const bookings = [
     isPaid: false,
     receptionist: "Erica baby",
     customerID: 3,
-    customer: { firstName: "Teni", plateNumber: "CDEewfw12" },
+    customer: { firstName: "Teni", email: "CDEewfw12@hffj" },
   },
 ];
 

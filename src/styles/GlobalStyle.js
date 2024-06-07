@@ -41,9 +41,9 @@ const GlobalStyles = createGlobalStyle`
     --color-indigo-100: #3730a3;
     --color-indigo-700: #e0e7ff;
     
-    --clr-red-100: #fee2e2;
-    --clr-red-700: #b91c1c;
-    --clr-red-800: #991b1b;
+    --color-red-100: #fee2e2;
+    --color-red-700: #b91c1c;
+    --color-red-800: #991b1b;
     
     --backdrop-color: rgba(0, 0, 0, 0.3);
 
@@ -68,6 +68,7 @@ const GlobalStyles = createGlobalStyle`
     --border-radius-sm: 5px;
     --border-radius-md: 7px;
     --border-radius-lg: 9px;
+    --border-radius-xl: 50px;
 }
 
 *,
