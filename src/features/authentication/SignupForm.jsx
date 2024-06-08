@@ -4,6 +4,8 @@ import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Heading from "../../ui/Heading";
 import Input from "../../ui/Input";
+import Checkbox from "../../ui/Checkbox";
+import ButtonGroup from "../../ui/ButtonGroup";
 
 const SignupHeader = styled.div`
   margin-bottom: 30px;
@@ -24,6 +26,18 @@ function SignupForm({ onCloseModal }) {
           <Input type="email" id="email" />
         </FormRow>
 
+        <FormRow label="Phone Number">
+          <Input type="text" id="phone" />
+        </FormRow>
+
+        <FormRow label="Role">
+          <Input type="text" id="role" />
+        </FormRow>
+
+        <FormRow label="Salary">
+          <Input type="number" id="salary" />
+        </FormRow>
+
         <FormRow label="Password (min 8 characters)">
           <Input type="password" id="password" />
         </FormRow>
@@ -32,11 +46,14 @@ function SignupForm({ onCloseModal }) {
           <Input type="password" id="passwordConfirm" />
         </FormRow>
 
-        <FormRow>
-          <Button variation="secondary" type="reset">
-            Cancel
-          </Button>
-          <Button>Create new user</Button>
+        <FormRow special="signup">
+          <Checkbox id="admin">Check the box if new user is an Admin</Checkbox>
+          <ButtonGroup>
+            <Button variation="secondary" type="reset">
+              Cancel
+            </Button>
+            <Button>Create new user</Button>
+          </ButtonGroup>
         </FormRow>
       </Form>
     </>

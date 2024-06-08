@@ -25,7 +25,7 @@ const StyledFormRow = styled.div`
 
       &:has(button) {
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
         gap: 1.2rem;
       }
     `};
