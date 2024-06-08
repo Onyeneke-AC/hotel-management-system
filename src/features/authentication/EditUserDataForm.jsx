@@ -8,7 +8,7 @@ import Input from "../../ui/Input";
 // import { useUser } from "./useUser";
 // import { useUpdateUser } from "./useUpdateUser";
 
-function UpdateUserDataForm() {
+function EditUserDataForm() {
   //   const {
   //     user: {
   //       email,
@@ -20,6 +20,9 @@ function UpdateUserDataForm() {
 
   //   const [fullName, setFullName] = useState(currentFullName);
   const [fullName, setFullName] = useState();
+  const [phone, setPhone] = useState();
+  const [role, setRole] = useState();
+  const [salary, setSalary] = useState();
   const email = "hfeh@hfb.com";
 
   function handleSubmit(e) {
@@ -38,6 +41,9 @@ function UpdateUserDataForm() {
 
   function handleCancel() {
     setFullName(fullName);
+    setPhone(phone);
+    setRole(role);
+    setSalary(salary);
   }
 
   return (
@@ -51,6 +57,33 @@ function UpdateUserDataForm() {
           value={fullName}
           onChange={(e) => setFullName(e.target.value)}
           id="fullName"
+          //   disabled={isUpdating}
+        />
+      </FormRow>
+      <FormRow label="Phone">
+        <Input
+          type="text"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          id="phone"
+          //   disabled={isUpdating}
+        />
+      </FormRow>
+      <FormRow label="Role">
+        <Input
+          type="text"
+          value={role}
+          onChange={(e) => setRole(e.target.value)}
+          id="role"
+          //   disabled={isUpdating}
+        />
+      </FormRow>
+      <FormRow label="Salary">
+        <Input
+          type="number"
+          value={salary}
+          onChange={(e) => setSalary(e.target.value)}
+          id="salary"
           //   disabled={isUpdating}
         />
       </FormRow>
@@ -69,4 +102,4 @@ function UpdateUserDataForm() {
   );
 }
 
-export default UpdateUserDataForm;
+export default EditUserDataForm;

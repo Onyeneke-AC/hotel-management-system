@@ -6,7 +6,7 @@ import Input from "../../ui/Input";
 
 // import { useUpdateUser } from "./useUpdateUser";
 
-function UpdatePasswordForm() {
+function EditPasswordForm() {
   const { register, handleSubmit, formState, getValues, reset } = useForm();
   const { errors } = formState;
 
@@ -63,4 +63,4 @@ function UpdatePasswordForm() {
   );
 }
 
-export default UpdatePasswordForm;
+export default EditPasswordForm;
