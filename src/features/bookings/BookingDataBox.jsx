@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { format, isToday } from "date-fns";
 import {
-  HiOutlineChatBubbleBottomCenterText,
-  HiOutlineCheckCircle,
+  //   HiOutlineChatBubbleBottomCenterText,
+  //   HiOutlineCheckCircle,
   HiOutlineCurrencyDollar,
   HiOutlineHomeModern,
 } from "react-icons/hi2";
@@ -114,7 +114,7 @@ const dummy = {
 // A purely presentational component
 function BookingDataBox({ booking }) {
   const {
-    customerID,
+    // customerID,
     amount,
     isPaid,
     paymentMethod,
@@ -122,12 +122,12 @@ function BookingDataBox({ booking }) {
     created_at,
     roomBookings: {
       numberOfNights,
-      checkedIn,
-      checkedOut,
+      //   checkedIn,
+      //   checkedOut,
       startDate,
       endDate,
-      bookingID,
-      roomID,
+      //   bookingID,
+      //   roomID,
     },
   } = booking;
 

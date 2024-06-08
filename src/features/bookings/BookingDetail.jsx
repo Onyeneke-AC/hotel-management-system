@@ -8,15 +8,15 @@ import Button from "../../ui/Button";
 import ButtonText from "../../ui/ButtonText";
 
 import { useMoveBack } from "../../hooks/useMoveBack";
-import { useBooking } from "./useBooking";
-import Spinner from "../../ui/Spinner";
+// import { useBooking } from "./useBooking";
+// import Spinner from "../../ui/Spinner";
 import { useNavigate } from "react-router-dom";
 // import { useCheckout } from "../check-in-out/useCheckout";
 import { HiArrowUpOnSquare, HiTrash } from "react-icons/hi2";
 import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
-import { useDeleteBooking } from "./useDeleteBooking";
-import Empty from "../../ui/Empty";
+// import { useDeleteBooking } from "./useDeleteBooking";
+// import Empty from "../../ui/Empty";
 import BookingDataBox from "./BookingDataBox";
 
 const HeadingGroup = styled.div`
@@ -70,6 +70,7 @@ function BookingDetail() {
     <>
       <Row type="horizontal">
         <HeadingGroup>
+          <Heading as="h1">Booking #booking id</Heading>
           <Tag type={statusToTagName[checkedIn]} marks="mark">
             {/* {checkedIn === true ? <HiOutlineCheck /> : <HiOutlineXMark />}{" "} */}
             {checkedIn === true ? (
