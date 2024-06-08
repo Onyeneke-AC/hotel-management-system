@@ -1,0 +1,14 @@
+import { useQuery } from "@tanstack/react-query";
+import { getUsers } from "../../services/apiAuth";
+
+export function useCabins() {
+  const {
+    isLoading,
+    data: users,
+    error,
+  } = useQuery({
+    queryKey: ["users"],
+    queryFn: getUsers,
+  });
+  return { isLoading, users, error };
+}

@@ -18,7 +18,7 @@ function SearchGuest() {
 
   return (
     <Input
-      placeholder="search guest..."
+      placeholder={`search guest...`}
       value={query}
       onChange={(e) => setQuery(e.target.value)}
       type="search"

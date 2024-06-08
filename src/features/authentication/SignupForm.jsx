@@ -46,7 +46,7 @@ function SignupForm({ onCloseModal }) {
           <Input type="password" id="passwordConfirm" />
         </FormRow>
 
-        <FormRow special="signup">
+        <FormRow type="check">
           <Checkbox id="admin">Check the box if new user is an Admin</Checkbox>
           <ButtonGroup>
             <Button variation="secondary" type="reset">

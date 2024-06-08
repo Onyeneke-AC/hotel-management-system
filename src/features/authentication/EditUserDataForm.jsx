@@ -21,8 +21,6 @@ function EditUserDataForm() {
   //   const [fullName, setFullName] = useState(currentFullName);
   const [fullName, setFullName] = useState();
   const [phone, setPhone] = useState();
-  const [role, setRole] = useState();
-  const [salary, setSalary] = useState();
   const email = "hfeh@hfb.com";
 
   function handleSubmit(e) {
@@ -42,8 +40,6 @@ function EditUserDataForm() {
   function handleCancel() {
     setFullName(fullName);
     setPhone(phone);
-    setRole(role);
-    setSalary(salary);
   }
 
   return (
@@ -69,24 +65,7 @@ function EditUserDataForm() {
           //   disabled={isUpdating}
         />
       </FormRow>
-      <FormRow label="Role">
-        <Input
-          type="text"
-          value={role}
-          onChange={(e) => setRole(e.target.value)}
-          id="role"
-          //   disabled={isUpdating}
-        />
-      </FormRow>
-      <FormRow label="Salary">
-        <Input
-          type="number"
-          value={salary}
-          onChange={(e) => setSalary(e.target.value)}
-          id="salary"
-          //   disabled={isUpdating}
-        />
-      </FormRow>
+
       <FormRow>
         <Button
           type="reset"

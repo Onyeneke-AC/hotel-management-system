@@ -25,7 +25,7 @@ const StyledFormRow = styled.div`
 
       &:has(button) {
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-end;
         gap: 1.2rem;
       }
     `};
@@ -39,6 +39,17 @@ const StyledFormRow = styled.div`
 
       padding: 1.2rem 0;
     `};
+
+  ${(props) =>
+    props.type === "check" &&
+    css`
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2.4rem;
+
+      padding: 1.2rem;
+    `}
 `;
 
 const Label = styled.label`
