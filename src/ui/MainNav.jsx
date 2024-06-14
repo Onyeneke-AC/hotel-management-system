@@ -1,7 +1,6 @@
 import { FaBed } from "react-icons/fa";
 import {
   HiOutlineCalendarDays,
-  HiOutlineCog6Tooth,
   HiOutlineHome,
   HiOutlineUsers,
 } from "react-icons/hi2";
