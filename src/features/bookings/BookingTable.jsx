@@ -2,10 +2,12 @@ import BookingRow from "./BookingRow";
 import Table from "../../ui/Table";
 import Empty from "../../ui/Empty";
 import { useSearchParams } from "react-router-dom";
+import Menus from "../../ui/Menus";
 
 const bookings = [
   {
     customerID: 1,
+    bookingID: 1,
     roomName: "001",
     receptionist: "Anna baby",
     amount: 300,
@@ -19,6 +21,7 @@ const bookings = [
     },
   },
   {
+    bookingID: 2,
     roomBookings: {
       checkedIn: false,
       numberOfNights: "20",
@@ -33,6 +36,7 @@ const bookings = [
     customer: { firstName: "Gold", email: "gkv@hgjh.com" },
   },
   {
+    bookingID: 3,
     roomBookings: {
       checkedIn: true,
       numberOfNights: "10",
@@ -69,24 +73,28 @@ function BookingTable() {
       (booking) => booking.roomBookings.checkedIn === false
     );
 
-  return (
-    <Table columns="0.6fr 2fr 2.4fr 1.4fr 1fr 3.2rem">
-      <Table.Header>
-        <div>Room</div>
-        <div>Guest</div>
-        <div>Dates</div>
-        <div>Checked In</div>
-        <div>Amount</div>
-        <div></div>
-      </Table.Header>
+  if (!filteredBookings.length) return <Empty resourceName="bookings" />;
 
-      <Table.Body
-        data={filteredBookings}
-        render={(booking) => (
-          <BookingRow key={booking.customerID} booking={booking} />
-        )}
-      />
-    </Table>
+  return (
+    <Menus>
+      <Table columns="0.6fr 2fr 2.4fr 1.4fr 1fr 3.2rem">
+        <Table.Header>
+          <div>Room</div>
+          <div>Guest</div>
+          <div>Dates</div>
+          <div>Checked In</div>
+          <div>Amount</div>
+          <div></div>
+        </Table.Header>
+
+        <Table.Body
+          data={filteredBookings}
+          render={(booking) => (
+            <BookingRow key={booking.bookingID} booking={booking} />
+          )}
+        />
+      </Table>
+    </Menus>
   );
 }
 

@@ -3,22 +3,17 @@ import { format, isToday } from "date-fns";
 
 import Tag from "../../ui/Tag";
 import Table from "../../ui/Table";
+import CreateBookingForm from "./CreateBookingForm";
 
 import { formatCurrency } from "../../utils/helpers";
 import { formatDistanceFromNow } from "../../utils/helpers";
-// import Menus from "../../ui/Menus";
-import {
-  HiEllipsisVertical,
-  // HiOutlineCheck,
-  // HiOutlineXMark,
-  //   HiArrowDownOnSquare,
-  //   HiArrowUpOnSquare,
-  // HiEye,
-  //   HiTrash,
-} from "react-icons/hi2";
-// import { useNavigate } from "react-router-dom";
-// import Modal from "../../ui/Modal";
-// import ConfirmDelete from "../../ui/ConfirmDelete";
+
+import { HiEye, HiPencil, HiTrash } from "react-icons/hi2";
+import Modal from "../../ui/Modal";
+import Menus from "../../ui/Menus";
+import { useNavigate } from "react-router-dom";
+import ConfirmDelete from "../../ui/ConfirmDelete";
+import SignupForm from "../authentication/SignupForm";
 
 const Room = styled.div`
   font-size: 1.6rem;
@@ -47,16 +42,22 @@ const Amount = styled.div`
   font-weight: 500;
 `;
 
-function BookingRow({
-  booking: {
+const StyledOther = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+function BookingRow({ booking }) {
+  const {
     roomBookings: { checkedIn, numberOfNights, startDate, endDate },
     amount,
     roomName,
     receptionist,
+    bookingID,
     customer: { firstName, email },
-  },
-}) {
-  // const navigate = useNavigate();
+  } = booking;
+
+  const navigate = useNavigate();
 
   const statusToTagName = {
     true: "green",
@@ -92,54 +93,30 @@ function BookingRow({
 
       <Amount>{formatCurrency(amount)}</Amount>
 
-      <HiEllipsisVertical />
-      {/* <Modal>
-        <Menus.Menu>
-          <Menus.Toggle id={bookingId} />
+      <StyledOther>
+        <Modal>
+          <Menus.Menu>
+            <Menus.Toggle id={bookingID} />
 
-          <Menus.List id={bookingId}>
-            <Menus.Button
-              icon={<HiEye />}
-              onClick={() => navigate(`/booking/${bookingId}`)}
-            >
-              See Details
-            </Menus.Button>
-
-            { {status === "unconfirmed" && (
+            <Menus.List id={bookingID}>
               <Menus.Button
-                icon={<HiArrowDownOnSquare />}
-                onClick={() => navigate(`/checkin/${bookingId}`)}
+                icon={<HiEye />}
+                onClick={() => navigate(`/booking/${bookingID}`)}
               >
-                Check in
+                See Details
               </Menus.Button>
-            )} }
 
-            { {status === "checked-in" && (
-              <Menus.Button
-                icon={<HiArrowUpOnSquare />}
-                disabled={isCheckingOut}
-                onClick={() => {
-                  checkout(bookingId);
-                }}
-              >
-                Check out
-              </Menus.Button>
-            )} }
-            { <Modal.Open opens="delete">
-              <Menus.Button icon={<HiTrash />}>Delete Booking</Menus.Button>
-        </Modal.Open>}
-          </Menus.List>
-        </Menus.Menu>
+              <Modal.Open opens="edit">
+                <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>
+              </Modal.Open>
 
-        { <Modal.Window name="delete">
-          <ConfirmDelete
-            resourceName="bookings"
-            id={bookingId}
-            disabled={isDeletingBooking}
-            onConfirm={() => deleteBooking(bookingId)}
-          />
-        </Modal.Window>}
-      </Modal> */}
+              <Modal.Window name="edit">
+                <CreateBookingForm />
+              </Modal.Window>
+            </Menus.List>
+          </Menus.Menu>
+        </Modal>
+      </StyledOther>
     </Table.Row>
   );
 }

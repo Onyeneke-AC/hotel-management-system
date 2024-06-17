@@ -160,6 +160,15 @@ img {
   width: 222px;
 }
 
+.filter_date {
+  border: 1px solid var(--color-grey-300);
+  background-color: var(--color-grey-0);
+  padding: 0.5rem 1.2rem;
+  box-shadow: var(--shadow-sm);
+  font-size: 1.4rem;
+  width: 180px;
+}
+
 `;
 
 export default GlobalStyles;

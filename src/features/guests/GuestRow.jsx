@@ -61,54 +61,40 @@ function GuestRow({
 
       <StyledText>{plateNumber}</StyledText>
 
-      <HiEllipsisVertical />
-      {/* <Modal>
-        <Menus.Menu>
-          <Menus.Toggle id={bookingId} />
+      {/* <div>
+        <Modal>
+          <Menus.Menu>
+            <Menus.Toggle id={cabinId} />
 
-          <Menus.List id={bookingId}>
-            <Menus.Button
-              icon={<HiEye />}
-              onClick={() => navigate(`/booking/${bookingId}`)}
-            >
-              See Details
-            </Menus.Button>
-
-            { {status === "unconfirmed" && (
-              <Menus.Button
-                icon={<HiArrowDownOnSquare />}
-                onClick={() => navigate(`/checkin/${bookingId}`)}
-              >
-                Check in
+            <Menus.List id={cabinId}>
+              <Menus.Button icon={<HiSquare2Stack />} onClick={handleDuplicate}>
+                Duplicate
               </Menus.Button>
-            )} }
 
-            { {status === "checked-in" && (
-              <Menus.Button
-                icon={<HiArrowUpOnSquare />}
-                disabled={isCheckingOut}
-                onClick={() => {
-                  checkout(bookingId);
-                }}
-              >
-                Check out
-              </Menus.Button>
-            )} }
-            { <Modal.Open opens="delete">
-              <Menus.Button icon={<HiTrash />}>Delete Booking</Menus.Button>
-        </Modal.Open>}
-          </Menus.List>
-        </Menus.Menu>
+              <Modal.Open opens="edit">
+                <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>
+              </Modal.Open>
 
-        { <Modal.Window name="delete">
-          <ConfirmDelete
-            resourceName="bookings"
-            id={bookingId}
-            disabled={isDeletingBooking}
-            onConfirm={() => deleteBooking(bookingId)}
-          />
-        </Modal.Window>}
-      </Modal> */}
+              <Modal.Window name="edit">
+                <CreateCabinForm cabinToEdit={cabin} />
+              </Modal.Window>
+
+              <Modal.Open opens="delete">
+                <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
+              </Modal.Open>
+            </Menus.List>
+
+            <Modal.Window name="delete">
+              <ConfirmDelete
+                resourceName="cabins"
+                disabled={isDeleting}
+                id={cabinId}
+                onConfirm={() => deleteCabin(cabinId)}
+              />
+            </Modal.Window>
+          </Menus.Menu>
+        </Modal>
+      </div> */}
     </Table.Row>
   );
 }

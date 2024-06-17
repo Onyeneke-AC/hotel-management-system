@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import Table from "../../ui/Table";
-import { HiEllipsisVertical } from "react-icons/hi2";
+import Menus from "../../ui/Menus";
+import Modal from "../../ui/Modal";
+import SignupForm from "../authentication/SignupForm";
+import ConfirmDelete from "../../ui/ConfirmDelete";
+import { HiPencil, HiTrash } from "react-icons/hi2";
 
 const StyledText = styled.div`
   font-size: 1.6rem;
@@ -14,8 +18,13 @@ const Number = styled.div`
   font-weight: 500;
 `;
 
+const StyledOther = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 function UsersRow({ user }) {
-  const { name, phone, email, emergencyContact, role } = user;
+  const { name, phone, email, emergencyContact, role, employeeID } = user;
 
   return (
     <Table.Row>
@@ -25,9 +34,36 @@ function UsersRow({ user }) {
       <StyledText>{role}</StyledText>
       <Number>{emergencyContact}</Number>
 
-      <div>
-        <HiEllipsisVertical />
-      </div>
+      <StyledOther>
+        <Modal>
+          <Menus.Menu>
+            <Menus.Toggle id={employeeID} />
+
+            <Menus.List id={employeeID}>
+              <Modal.Open opens="edit">
+                <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>
+              </Modal.Open>
+
+              <Modal.Window name="edit">
+                <SignupForm />
+              </Modal.Window>
+
+              <Modal.Open opens="delete">
+                <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
+              </Modal.Open>
+            </Menus.List>
+
+            <Modal.Window name="delete">
+              <ConfirmDelete
+                resourceName="user"
+                // disabled={isDeleting}
+                id={employeeID}
+                // onConfirm={() => deleteCabin(cabinId)}
+              />
+            </Modal.Window>
+          </Menus.Menu>
+        </Modal>
+      </StyledOther>
     </Table.Row>
   );
 }
