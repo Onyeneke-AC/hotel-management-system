@@ -2,6 +2,7 @@ import { useSearchParams } from "react-router-dom";
 import Table from "../../ui/Table";
 import GuestRow from "./GuestRow";
 import Empty from "../../ui/Empty";
+import Menus from "../../ui/Menus";
 
 const guests = [
   {
@@ -54,21 +55,23 @@ function GuestTable() {
   if (!filteredGuests.length) return <Empty resourceName="guests" />;
 
   return (
-    <Table columns="1.2fr 1.2fr 2.2fr 1.2fr 1fr 3.2rem">
-      <Table.Header>
-        <div>Name</div>
-        <div>Contact</div>
-        <div>Address</div>
-        <div>Emergency Contact</div>
-        <div>Plate Number</div>
-        <div></div>
-      </Table.Header>
+    <Menus>
+      <Table columns="1.2fr 1.2fr 2.2fr 1.2fr 1fr 3.2rem">
+        <Table.Header>
+          <div>Name</div>
+          <div>Contact</div>
+          <div>Address</div>
+          <div>Emergency Contact</div>
+          <div>Plate Number</div>
+          <div></div>
+        </Table.Header>
 
-      <Table.Body
-        data={filteredGuests}
-        render={(guest) => <GuestRow key={guest.id} guest={guest} />}
-      />
-    </Table>
+        <Table.Body
+          data={filteredGuests}
+          render={(guest) => <GuestRow key={guest.id} guest={guest} />}
+        />
+      </Table>
+    </Menus>
   );
 }
 

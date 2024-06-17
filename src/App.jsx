@@ -6,7 +6,6 @@ import AppLayout from "./ui/AppLayout";
 import Dashboard from "./pages/Dashboard";
 import Bookings from "./pages/Bookings";
 import Booking from "./pages/Booking";
-import Checkin from "./pages/Checkin";
 import Rooms from "./pages/Rooms";
 import Users from "./pages/Users";
 import Login from "./pages/Login";
@@ -14,6 +13,7 @@ import PageNotFound from "./pages/PageNotFound";
 import { Toaster } from "react-hot-toast";
 import Account from "./pages/Account";
 import Guests from "./pages/Guests";
+import Guest from "./pages/Guest";
 
 function App() {
   const queryClient = new QueryClient({
@@ -35,7 +35,7 @@ function App() {
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="bookings" element={<Bookings />} />
             <Route path="booking/:bookingId" element={<Booking />} />
-            <Route path="guest/:guestId" element={<Checkin />} />
+            <Route path="guest/:guestId" element={<Guest />} />
             <Route path="rooms" element={<Rooms />} />
             <Route path="users" element={<Users />} />
             <Route path="guests" element={<Guests />} />

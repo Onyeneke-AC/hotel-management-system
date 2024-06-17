@@ -12,8 +12,7 @@ import { HiEye, HiPencil, HiTrash } from "react-icons/hi2";
 import Modal from "../../ui/Modal";
 import Menus from "../../ui/Menus";
 import { useNavigate } from "react-router-dom";
-import ConfirmDelete from "../../ui/ConfirmDelete";
-import SignupForm from "../authentication/SignupForm";
+import { parseISO } from "date-fns";
 
 const Room = styled.div`
   font-size: 1.6rem;
@@ -49,13 +48,17 @@ const StyledOther = styled.div`
 
 function BookingRow({ booking }) {
   const {
-    roomBookings: { checkedIn, numberOfNights, startDate, endDate },
+    roomBookings,
     amount,
     roomName,
     receptionist,
     bookingID,
-    customer: { firstName, email },
+    // customer: { firstName, email },
   } = booking;
+
+  const [roomBooking] = roomBookings;
+
+  const { checkedIn, numberOfNights, startDate, endDate } = roomBooking;
 
   const navigate = useNavigate();
 
@@ -64,25 +67,28 @@ function BookingRow({ booking }) {
     false: "silver",
   };
 
+  const startDateTime = parseISO(startDate);
+  const endDateTime = parseISO(endDate);
+
   return (
     <Table.Row>
       <Room>{roomName}</Room>
 
       <Stacked>
-        <span>{firstName}</span>
-        <span>{email}</span>
+        {/* <span>{firstName}</span>
+        <span>{email}</span> */}
       </Stacked>
 
       <Stacked>
-        <span>
-          {isToday(new Date(startDate))
+        {/* <span>
+          {isToday(new Date(startDateTime))
             ? "Today"
-            : formatDistanceFromNow(startDate)}{" "}
+            : formatDistanceFromNow(new Date(startDateTime))}
           &rarr; {numberOfNights} night stay
-        </span>
+        </span> */}
         <span>
-          {format(new Date(startDate), "MMM dd yyyy")} &mdash;{" "}
-          {format(new Date(endDate), "MMM dd yyyy")}
+          {format(new Date(startDateTime), "MMM dd yyyy")} &mdash;{" "}
+          {format(new Date(endDateTime), "MMM dd yyyy")}
         </span>
       </Stacked>
 

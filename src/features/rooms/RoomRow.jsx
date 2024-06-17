@@ -32,14 +32,14 @@ const statusToTagName = {
 };
 
 function RoomRow({ room }) {
-  const { Name, Category, Description, Price, status } = room;
+  const { name, category, description, price, status } = room;
 
   return (
     <Table.Row>
-      <Room>{Name}</Room>
-      <Room>{Category}</Room>
-      <StyledPrice>{formatCurrency(Price)}</StyledPrice>
-      <div>{Description}</div>
+      <Room>{name}</Room>
+      <Room>{category}</Room>
+      <StyledPrice>{formatCurrency(price)}</StyledPrice>
+      <div>{description}</div>
       <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
       <StyledEdit>
         <Modal>

@@ -17,7 +17,7 @@ import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 // import { useDeleteBooking } from "./useDeleteBooking";
 // import Empty from "../../ui/Empty";
-import BookingDataBox from "./BookingDataBox";
+import BookingDataBox from "../bookings/BookingDataBox";
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -58,6 +58,7 @@ function GuestDetail() {
   const {
     id: bookingId,
     receptionist,
+    customerID,
     roomBookings: { checkedIn, checkedOut },
   } = booking;
 
@@ -70,7 +71,7 @@ function GuestDetail() {
     <>
       <Row type="horizontal">
         <HeadingGroup>
-          <Heading as="h1">Booking #booking id</Heading>
+          <Heading as="h1">Guest {customerID}</Heading>
           <Tag type={statusToTagName[checkedIn]} marks="mark">
             {/* {checkedIn === true ? <HiOutlineCheck /> : <HiOutlineXMark />}{" "} */}
             {checkedIn === true ? (

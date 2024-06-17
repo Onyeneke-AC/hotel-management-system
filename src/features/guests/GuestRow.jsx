@@ -1,18 +1,10 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Table from "../../ui/Table";
-// import Menus from "../../ui/Menus";
-import {
-  HiEllipsisVertical,
-  // HiOutlineCheck,
-  // HiOutlineXMark,
-  //   HiArrowDownOnSquare,
-  //   HiArrowUpOnSquare,
-  // HiEye,
-  //   HiTrash,
-} from "react-icons/hi2";
-// import { useNavigate } from "react-router-dom";
-// import Modal from "../../ui/Modal";
-// import ConfirmDelete from "../../ui/ConfirmDelete";
+import Modal from "../../ui/Modal";
+import Menus from "../../ui/Menus";
+import CreateGuestForm from "./CreateGuestForm";
+import { HiEye, HiPencil } from "react-icons/hi2";
 
 const StyledText = styled.div`
   font-size: 1.6rem;
@@ -41,10 +33,23 @@ const Number = styled.div`
   font-weight: 500;
 `;
 
+const StyledOther = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 function GuestRow({
-  guest: { name, email, phone, address, emergencyContact, plateNumber },
+  guest: {
+    name,
+    email,
+    phone,
+    address,
+    emergencyContact,
+    plateNumber,
+    id: customerID,
+  },
 }) {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <Table.Row>
@@ -61,14 +66,17 @@ function GuestRow({
 
       <StyledText>{plateNumber}</StyledText>
 
-      {/* <div>
+      <StyledOther>
         <Modal>
           <Menus.Menu>
-            <Menus.Toggle id={cabinId} />
+            <Menus.Toggle id={customerID} />
 
-            <Menus.List id={cabinId}>
-              <Menus.Button icon={<HiSquare2Stack />} onClick={handleDuplicate}>
-                Duplicate
+            <Menus.List id={customerID}>
+              <Menus.Button
+                icon={<HiEye />}
+                onClick={() => navigate(`/guest/${customerID}`)}
+              >
+                See Details
               </Menus.Button>
 
               <Modal.Open opens="edit">
@@ -76,25 +84,12 @@ function GuestRow({
               </Modal.Open>
 
               <Modal.Window name="edit">
-                <CreateCabinForm cabinToEdit={cabin} />
+                <CreateGuestForm />
               </Modal.Window>
-
-              <Modal.Open opens="delete">
-                <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
-              </Modal.Open>
             </Menus.List>
-
-            <Modal.Window name="delete">
-              <ConfirmDelete
-                resourceName="cabins"
-                disabled={isDeleting}
-                id={cabinId}
-                onConfirm={() => deleteCabin(cabinId)}
-              />
-            </Modal.Window>
           </Menus.Menu>
         </Modal>
-      </div> */}
+      </StyledOther>
     </Table.Row>
   );
 }

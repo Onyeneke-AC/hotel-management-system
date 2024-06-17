@@ -3,6 +3,8 @@ import Menus from "../../ui/Menus";
 import Table from "../../ui/Table";
 import RoomRow from "./RoomRow";
 import Empty from "../../ui/Empty";
+import { useRooms } from "./useRooms";
+import Spinner from "../../ui/Spinner";
 
 const rooms = [
   {
@@ -48,7 +50,10 @@ const rooms = [
 ];
 
 function RoomTable() {
+  const { rooms, isLoading } = useRooms();
   const [searchParams] = useSearchParams();
+
+  if (isLoading) return <Spinner />;
 
   if (!rooms.length) return <Empty resourceName="rooms" />;
 
@@ -68,7 +73,7 @@ function RoomTable() {
     filteredRooms = rooms.filter((room) => room.status === "unconfirmed");
   return (
     <Menus>
-      <Table columns="0.6fr 1.8fr 1fr 1.8fr 1fr 0.6fr">
+      <Table columns="0.6fr 1.3fr 1fr 1.9fr 1.2fr 0.3fr">
         <Table.Header>
           <div>Name</div>
           <div>Category</div>
@@ -79,9 +84,7 @@ function RoomTable() {
         </Table.Header>
         <Table.Body
           data={filteredRooms}
-          render={(room) => (
-            <RoomRow key={room.RoomBookings.RoomId} room={room} />
-          )}
+          render={(room) => <RoomRow key={room.ID} room={room} />}
         />
       </Table>
     </Menus>
