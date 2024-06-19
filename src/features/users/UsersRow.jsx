@@ -5,6 +5,7 @@ import Modal from "../../ui/Modal";
 import SignupForm from "../authentication/SignupForm";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import { HiPencil, HiTrash } from "react-icons/hi2";
+import { useDeleteUser } from "./useDeleteUser";
 
 const StyledText = styled.div`
   font-size: 1.6rem;
@@ -24,11 +25,14 @@ const StyledOther = styled.div`
 `;
 
 function UsersRow({ user }) {
-  const { name, phone, email, emergencyContact, role, employeeID } = user;
+  const { ID, firstName, lastName, phone, email, emergencyContact, role } =
+    user;
+
+  const { deleteUser, isDeletingUser } = useDeleteUser();
 
   return (
     <Table.Row>
-      <StyledText>{name}</StyledText>
+      <StyledText>{firstName + " " + lastName}</StyledText>
       <StyledText>{email}</StyledText>
       <Number>{phone}</Number>
       <StyledText>{role}</StyledText>
@@ -37,9 +41,9 @@ function UsersRow({ user }) {
       <StyledOther>
         <Modal>
           <Menus.Menu>
-            <Menus.Toggle id={employeeID} />
+            <Menus.Toggle id={ID} />
 
-            <Menus.List id={employeeID}>
+            <Menus.List id={ID}>
               <Modal.Open opens="edit">
                 <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>
               </Modal.Open>
@@ -56,9 +60,9 @@ function UsersRow({ user }) {
             <Modal.Window name="delete">
               <ConfirmDelete
                 resourceName="user"
-                // disabled={isDeleting}
-                id={employeeID}
-                // onConfirm={() => deleteCabin(cabinId)}
+                disabled={isDeletingUser}
+                id={ID}
+                onConfirm={() => deleteUser(ID)}
               />
             </Modal.Window>
           </Menus.Menu>

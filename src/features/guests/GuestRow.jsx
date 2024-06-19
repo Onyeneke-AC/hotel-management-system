@@ -40,7 +40,8 @@ const StyledOther = styled.div`
 
 function GuestRow({
   guest: {
-    name,
+    firstName,
+    lastName,
     email,
     phone,
     address,
@@ -53,7 +54,7 @@ function GuestRow({
 
   return (
     <Table.Row>
-      <StyledText>{name}</StyledText>
+      <StyledText>{firstName + " " + lastName}</StyledText>
 
       <Stacked>
         <span>{email}</span>
@@ -66,30 +67,28 @@ function GuestRow({
 
       <StyledText>{plateNumber}</StyledText>
 
-      <StyledOther>
-        <Modal>
-          <Menus.Menu>
-            <Menus.Toggle id={customerID} />
+      <Modal>
+        <Menus.Menu>
+          <Menus.Toggle id={customerID} />
 
-            <Menus.List id={customerID}>
-              <Menus.Button
-                icon={<HiEye />}
-                onClick={() => navigate(`/guest/${customerID}`)}
-              >
-                See Details
-              </Menus.Button>
+          <Menus.List id={customerID}>
+            <Menus.Button
+              icon={<HiEye />}
+              onClick={() => navigate(`/guest/${customerID}`)}
+            >
+              See Details
+            </Menus.Button>
 
-              <Modal.Open opens="edit">
-                <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>
-              </Modal.Open>
+            <Modal.Open opens="edit-guest">
+              <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>
+            </Modal.Open>
 
-              <Modal.Window name="edit">
-                <CreateGuestForm />
-              </Modal.Window>
-            </Menus.List>
-          </Menus.Menu>
-        </Modal>
-      </StyledOther>
+            <Modal.Window name="edit-guest">
+              <CreateGuestForm />
+            </Modal.Window>
+          </Menus.List>
+        </Menus.Menu>
+      </Modal>
     </Table.Row>
   );
 }

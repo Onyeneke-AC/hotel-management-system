@@ -1,7 +1,6 @@
-import { formatDistance, parseISO } from "date-fns";
+import { formatDistance, isPast, parseISO } from "date-fns";
 import { differenceInDays } from "date-fns/esm";
 
-// We want to make this function work for both Date objects and strings (which come from Supabase)
 export const subtractDates = (dateStr1, dateStr2) =>
   differenceInDays(parseISO(String(dateStr1)), parseISO(String(dateStr2)));
 
@@ -12,23 +11,37 @@ export const formatDistanceFromNow = (dateStr) => {
   }
 
   try {
-    const parsedDate = parseISO(dateStr);
-    return formatDistance(parsedDate, new Date(), {
-      addSuffix: true,
-    })
+    const parsedDate = dateStr;
+
+    const currentDate = new Date();
+
+    let result;
+    if (isPast(parsedDate)) {
+      // For past dates
+      result = formatDistance(parsedDate, currentDate, {
+        addSuffix: true,
+      });
+    } else {
+      // For future dates
+      result = formatDistance(currentDate, parsedDate, {
+        addSuffix: true,
+      });
+    }
+
+    return result
       .replace("about ", "")
-      .replace("in", "In");
+      .replace("less than", "Less than")
+      .replace("almost", "Almost")
+      .replace("in ", "In ");
   } catch (error) {
-    console.error("Error parsing date:", dateStr, error);
+    console.error("Error parsing or formatting date:", dateStr, error);
     return "Error formatting date";
   }
 };
 
-// Supabase needs an ISO date string. However, that string will be different on every render because the MS or SEC have changed, which isn't good. So we use this trick to remove any time
 export const getToday = function (options = {}) {
   const today = new Date();
 
-  // This is necessary to compare with created_at from Supabase, because it it not at 0.0.0.0, so we need to set the date to be END of the day when we compare it with earlier dates
   if (options?.end)
     // Set to the last second of the day
     today.setUTCHours(23, 59, 59, 999);
@@ -37,6 +50,6 @@ export const getToday = function (options = {}) {
 };
 
 export const formatCurrency = (value) =>
-  new Intl.NumberFormat("en", { style: "currency", currency: "USD" }).format(
+  new Intl.NumberFormat("en-NG", { style: "currency", currency: "NGN" }).format(
     value
   );

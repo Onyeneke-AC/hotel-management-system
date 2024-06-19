@@ -3,6 +3,8 @@ import Table from "../../ui/Table";
 import GuestRow from "./GuestRow";
 import Empty from "../../ui/Empty";
 import Menus from "../../ui/Menus";
+import { useGuests } from "./useGuests";
+import Spinner from "../../ui/Spinner";
 
 const guests = [
   {
@@ -35,7 +37,10 @@ const guests = [
 ];
 
 function GuestTable() {
+  const { guests, isLoading } = useGuests();
   const [searchParams] = useSearchParams();
+
+  if (isLoading) return <Spinner />;
 
   if (!guests.length) return <Empty resourceName="guests" />;
 
@@ -45,10 +50,16 @@ function GuestTable() {
 
   if (filterValue)
     filteredGuests = guests.filter((guest) => {
+      const firstName = guest.firstName || "";
+      const lastName = guest.lastName || "";
+      const plateNumber = guest.plateNumber || "";
+      const email = guest.email || "";
+
       return (
-        guest.name.toLowerCase().includes(filterValue.toLowerCase()) ||
-        guest.plateNumber.toLowerCase().includes(filterValue.toLowerCase()) ||
-        guest.email.toLowerCase().includes(filterValue.toLowerCase())
+        firstName.toLowerCase().includes(filterValue.toLowerCase()) ||
+        lastName.toLowerCase().includes(filterValue.toLowerCase()) ||
+        plateNumber.toLowerCase().includes(filterValue.toLowerCase()) ||
+        email.toLowerCase().includes(filterValue.toLowerCase())
       );
     });
 
@@ -56,7 +67,7 @@ function GuestTable() {
 
   return (
     <Menus>
-      <Table columns="1.2fr 1.2fr 2.2fr 1.2fr 1fr 3.2rem">
+      <Table columns="1.1fr 2fr 2.2fr 1.2fr 1fr 0.2fr">
         <Table.Header>
           <div>Name</div>
           <div>Contact</div>
@@ -68,7 +79,7 @@ function GuestTable() {
 
         <Table.Body
           data={filteredGuests}
-          render={(guest) => <GuestRow key={guest.id} guest={guest} />}
+          render={(guest) => <GuestRow key={guest.ID} guest={guest} />}
         />
       </Table>
     </Menus>

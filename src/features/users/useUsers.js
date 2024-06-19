@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { getUsers } from "../../services/apiAuth";
 
-export function useCabins() {
+export function useUsers() {
   const {
     isLoading,
     data: users,
