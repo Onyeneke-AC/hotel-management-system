@@ -1,10 +1,43 @@
-export async function signup({ fullName, email, password }) {}
+const API_URL = "http://127.0.0.1:3000/api/v1";
+
+export async function signupAndUpdate(newUserData, id) {
+  try {
+    if (id) {
+      const res = await fetch(`${API_URL}/users/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newUserData),
+      });
+
+      if (!res.ok) throw Error("Failed updating user");
+    }
+    if (!id) {
+      const res = await fetch(`${API_URL}/users`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newUserData),
+      });
+
+      if (!res.ok) throw Error("Failed creating user");
+
+      const data = await res.json();
+
+      return data;
+    }
+  } catch (error) {
+    throw error;
+  }
+}
 
 export async function login({ email, password }) {}
 
 export async function getUsers() {
   try {
-    const res = await fetch("http://127.0.0.1:3000/api/v1/users/get-all");
+    const res = await fetch(`${API_URL}/users/get-all`);
 
     if (!res.ok) {
       throw Error("Error loading the data");
@@ -24,11 +57,25 @@ export async function getCurrentUser() {}
 export async function editCurrentUser({ password, fullName }) {}
 
 // for the admin
-export async function updateUser(newUserData, id) {}
+export async function updateUser(userData, id) {
+  try {
+    const res = await fetch(`${API_URL}/users/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    });
+
+    if (!res.ok) throw Error("Failed updating user");
+  } catch (error) {
+    throw error;
+  }
+}
 
 export async function deleteUser(userID) {
   try {
-    const res = await fetch(`http://127.0.0.1:3000/api/v1/users/${userID}`, {
+    const res = await fetch(`${API_URL}/users/${userID}`, {
       method: "DELETE",
     });
 

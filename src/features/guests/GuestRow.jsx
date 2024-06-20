@@ -47,7 +47,7 @@ function GuestRow({
     address,
     emergencyContact,
     plateNumber,
-    id: customerID,
+    ID: customerID,
   },
 }) {
   const navigate = useNavigate();

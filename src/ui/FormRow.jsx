@@ -48,7 +48,7 @@ const StyledFormRow = styled.div`
       justify-content: space-between;
       gap: 2.4rem;
 
-      padding: 1.2rem;
+      padding: 1.5rem;
     `};
 
   ${(props) =>

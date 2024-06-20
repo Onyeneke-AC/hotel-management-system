@@ -44,20 +44,20 @@ function UsersRow({ user }) {
             <Menus.Toggle id={ID} />
 
             <Menus.List id={ID}>
-              <Modal.Open opens="edit">
+              <Modal.Open opens="edit-user">
                 <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>
               </Modal.Open>
 
-              <Modal.Window name="edit">
-                <SignupForm />
-              </Modal.Window>
-
-              <Modal.Open opens="delete">
+              <Modal.Open opens="delete-user">
                 <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
               </Modal.Open>
             </Menus.List>
 
-            <Modal.Window name="delete">
+            <Modal.Window name="edit-user">
+              <SignupForm userToEdit={user} />
+            </Modal.Window>
+
+            <Modal.Window name="delete-user">
               <ConfirmDelete
                 resourceName="user"
                 disabled={isDeletingUser}

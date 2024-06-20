@@ -56,7 +56,7 @@ function UsersTable() {
 
   return (
     <Menus>
-      <Table columns="1.2fr 2.2fr 1fr 1.3fr 1.2fr 0.2fr">
+      <Table columns="1.4fr 2.2fr 1fr 1.3fr 1fr 0.2fr">
         <Table.Header>
           <div>Name</div>
           <div>Email</div>
@@ -67,7 +67,7 @@ function UsersTable() {
         </Table.Header>
         <Table.Body
           data={users}
-          render={(user) => <UsersRow key={user.employeeID} user={user} />}
+          render={(user) => <UsersRow key={user.ID} user={user} />}
         />
       </Table>
     </Menus>

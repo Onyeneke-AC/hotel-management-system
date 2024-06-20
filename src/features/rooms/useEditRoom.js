@@ -8,7 +8,7 @@ export function useEditRoom() {
   const { mutate: editRoom, isLoading: isEditing } = useMutation({
     mutationFn: ({ newRoomData, id }) => editRoomApi(newRoomData, id),
     onSuccess: () => {
-      toast.success("Room has successfully been edited");
+      toast.success("Room has successfully been updated");
 
       queryClient.invalidateQueries({
         queryKey: ["room"],

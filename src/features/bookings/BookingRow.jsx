@@ -49,10 +49,9 @@ const StyledOther = styled.div`
 `;
 
 function BookingRow({ booking }) {
-  const { ID, roomBookings, amount, roomName, receptionist, customerID } =
-    booking;
+  const { ID, roomBookings, amount, roomName, receptionist } = booking;
 
-  const { guest, isLoading } = useGuest(customerID);
+  const { guest, isLoading } = useGuest(ID);
 
   const navigate = useNavigate();
 
