@@ -1,6 +1,8 @@
+const API_URL = "http://127.0.0.1:3000/api/v1";
+
 export async function getGuests() {
   try {
-    const res = await fetch("http://127.0.0.1:3000/api/v1/customers");
+    const res = await fetch(`${API_URL}/customers`);
 
     if (!res.ok) {
       throw Error("Error loading the data");
@@ -16,7 +18,7 @@ export async function getGuests() {
 
 export async function getGuestById(id) {
   try {
-    const res = await fetch(`http://127.0.0.1:3000/api/v1/customers/${id}`);
+    const res = await fetch(`${API_URL}/customers/${id}`);
 
     if (!res.ok) {
       throw Error("Error loading the data");
@@ -33,8 +35,44 @@ export async function getGuestById(id) {
   }
 }
 
-export async function createGuest(newGuest) {}
+export async function createAndUpdateGuest(newGuestData, id) {
+  try {
+    if (id) {
+      const res = await fetch(`${API_URL}/customers/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newGuestData),
+      });
 
-export async function editGuest(editedGuestData, id) {}
+      if (!res.ok) {
+        const errorResponse = await res.json();
+        throw new Error(errorResponse.message || "Failed updating user");
+      }
+    }
+
+    if (!id) {
+      const res = await fetch(`${API_URL}/customers`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newGuestData),
+      });
+
+      if (!res.ok) {
+        const errorResponse = await res.json();
+        throw new Error(errorResponse.message || "Failed creating user");
+      }
+
+      const data = await res.json();
+
+      return data;
+    }
+  } catch (error) {
+    throw error;
+  }
+}
 
 // export async function deleteGuest(id) {}

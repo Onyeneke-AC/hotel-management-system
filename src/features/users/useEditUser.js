@@ -9,7 +9,7 @@ export function useEditUser() {
   const { mutate: editUser, isLoading: isUpdating } = useMutation({
     mutationFn: editCurrentUser,
     onSuccess: (user) => {
-      queryClient.setQueryData(["user"], user);
+      queryClient.setQueryData(["users"], user);
       toast.success("User account successfully updated");
     },
     onError: (err) => {

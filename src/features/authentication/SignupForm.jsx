@@ -33,7 +33,7 @@ function SignupForm({ userToEdit = {}, onCloseModal }) {
   const { errors } = formState;
 
   function onSubmit(data) {
-    const { passwordConfirm, salary, ...otherData } = data;
+    const { passwordConfirm, salary, bookings, ...otherData } = data;
 
     const transSalary = parseInt(salary);
 
@@ -62,13 +62,16 @@ function SignupForm({ userToEdit = {}, onCloseModal }) {
   return (
     <>
       <SignupHeader>
-        <Heading as="h1">Create New User</Heading>
+        <Heading as="h1">
+          {isUpdateSession ? "Edit User Details" : "Create New User"}
+        </Heading>
       </SignupHeader>
+
       <Form
         type={onCloseModal ? "modal" : "regular"}
         onSubmit={handleSubmit(onSubmit)}
       >
-        <FormRow label="First Name" error={errors?.first_name?.message}>
+        <FormRow label="First Name" error={errors?.firstName?.message}>
           <Input
             type="text"
             id="firstName"
@@ -118,13 +121,13 @@ function SignupForm({ userToEdit = {}, onCloseModal }) {
 
         <FormRow
           label="Emergency Contact"
-          error={errors?.emergency_contact?.message}
+          error={errors?.emergencyContact?.message}
         >
           <Input
             type="tel"
-            id="emergency_contact"
+            id="emergencyContact"
             disabled={isWorking}
-            {...register("emergency_contact", {
+            {...register("emergencyContact", {
               required: "This field is required",
               pattern: {
                 value: /^[+]?[(]?[0-9]{3}[)]?[-s.]?[0-9]{3}[-s.]?[0-9]{4,7}$/,
@@ -211,7 +214,7 @@ function SignupForm({ userToEdit = {}, onCloseModal }) {
               Cancel
             </Button>
             <Button disabled={isWorking}>
-              {isUpdateSession ? "Edit User Details" : "Create New User"}
+              {isUpdateSession ? "Update User Details" : "Create New User"}
             </Button>
           </ButtonGroup>
         </FormRow>

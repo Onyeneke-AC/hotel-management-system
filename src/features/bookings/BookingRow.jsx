@@ -116,11 +116,11 @@ function BookingRow({ booking }) {
               <Modal.Open opens="edit">
                 <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>
               </Modal.Open>
-
-              <Modal.Window name="edit">
-                <CreateBookingForm />
-              </Modal.Window>
             </Menus.List>
+
+            <Modal.Window name="edit">
+              <CreateBookingForm />
+            </Modal.Window>
           </Menus.Menu>
         </Modal>
       </StyledOther>

@@ -8,9 +8,9 @@ function RoomTableOperations() {
         filterField="status"
         options={[
           { value: "all", label: "All" },
-          { value: "checked-out", label: "Checked out" },
-          { value: "checked-in", label: "Checked in" },
-          { value: "unconfirmed", label: "Unconfirmed" },
+          { value: "available", label: "Available" },
+          { value: "cleaning", label: "Cleaning" },
+          { value: "unavailable", label: "Unavailable" },
         ]}
       />
     </TableOperations>

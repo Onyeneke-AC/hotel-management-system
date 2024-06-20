@@ -7,7 +7,7 @@ export function useRooms() {
     data: rooms,
     error,
   } = useQuery({
-    queryKey: ["room"],
+    queryKey: ["rooms"],
     queryFn: getRooms,
   });
   return { isLoading, rooms, error };

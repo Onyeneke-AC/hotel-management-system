@@ -1,5 +1,6 @@
 const API_URL = "http://127.0.0.1:3000/api/v1";
 
+// for the admin
 export async function signupAndUpdate(newUserData, id) {
   try {
     if (id) {
@@ -13,6 +14,7 @@ export async function signupAndUpdate(newUserData, id) {
 
       if (!res.ok) throw Error("Failed updating user");
     }
+
     if (!id) {
       const res = await fetch(`${API_URL}/users`, {
         method: "POST",
@@ -56,22 +58,22 @@ export async function getCurrentUser() {}
 // for the current user
 export async function editCurrentUser({ password, fullName }) {}
 
-// for the admin
-export async function updateUser(userData, id) {
-  try {
-    const res = await fetch(`${API_URL}/users/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userData),
-    });
+// // for the admin
+// export async function updateUser(userData, id) {
+//   try {
+//     const res = await fetch(`${API_URL}/users/${id}`, {
+//       method: "PATCH",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify(userData),
+//     });
 
-    if (!res.ok) throw Error("Failed updating user");
-  } catch (error) {
-    throw error;
-  }
-}
+//     if (!res.ok) throw Error("Failed updating user");
+//   } catch (error) {
+//     throw error;
+//   }
+// }
 
 export async function deleteUser(userID) {
   try {

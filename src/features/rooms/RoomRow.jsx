@@ -43,11 +43,11 @@ function RoomRow({ room }) {
       <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
       <StyledEdit>
         <Modal>
-          <Modal.Open opens="edit">
+          <Modal.Open opens="edit-room">
             <HiPencil />
           </Modal.Open>
-          <Modal.Window name="edit">
-            <CreateRoomForm />
+          <Modal.Window name="edit-room">
+            <CreateRoomForm roomToEdit={room} />
           </Modal.Window>
         </Modal>
       </StyledEdit>

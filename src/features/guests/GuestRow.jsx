@@ -33,13 +33,8 @@ const Number = styled.div`
   font-weight: 500;
 `;
 
-const StyledOther = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
-function GuestRow({
-  guest: {
+function GuestRow({ guest }) {
+  const {
     firstName,
     lastName,
     email,
@@ -48,8 +43,8 @@ function GuestRow({
     emergencyContact,
     plateNumber,
     ID: customerID,
-  },
-}) {
+  } = guest;
+
   const navigate = useNavigate();
 
   return (
@@ -82,11 +77,11 @@ function GuestRow({
             <Modal.Open opens="edit-guest">
               <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>
             </Modal.Open>
-
-            <Modal.Window name="edit-guest">
-              <CreateGuestForm />
-            </Modal.Window>
           </Menus.List>
+
+          <Modal.Window name="edit-guest">
+            <CreateGuestForm guestToEdit={guest} />
+          </Modal.Window>
         </Menus.Menu>
       </Modal>
     </Table.Row>

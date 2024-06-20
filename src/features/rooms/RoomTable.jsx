@@ -6,48 +6,48 @@ import Empty from "../../ui/Empty";
 import { useRooms } from "./useRooms";
 import Spinner from "../../ui/Spinner";
 
-const rooms = [
-  {
-    RoomBookings: { RoomId: 1 },
-    Name: "001",
-    Category: "Standard Luxury",
-    Description: "1 bedroom standard",
-    Price: 20000,
-    status: "checked-in",
-  },
-  {
-    RoomBookings: { RoomId: 2 },
-    Name: "002",
-    Category: "Deluxe Luxury",
-    Description: "2 bedroom standard",
-    Price: 25000,
-    status: "unconfirmed",
-  },
-  {
-    RoomBookings: { RoomId: 3 },
-    Name: "003",
-    Category: "Standard Aparte",
-    Description: "3 bedroom standard",
-    Price: 30000,
-    status: "checked-out",
-  },
-  {
-    RoomBookings: { RoomId: 4 },
-    Name: "004",
-    Category: "Standard Luxury",
-    Description: "1 bedroom standard",
-    Price: 35000,
-    status: "unconfirmed",
-  },
-  {
-    RoomBookings: { RoomId: 5 },
-    Name: "005",
-    Category: "Deluxe Aparte Luxury",
-    Description: "1 bedroom standard",
-    Price: 40000,
-    status: "checked-in",
-  },
-];
+// const rooms = [
+//   {
+//     RoomBookings: { RoomId: 1 },
+//     Name: "001",
+//     Category: "Standard Luxury",
+//     Description: "1 bedroom standard",
+//     Price: 20000,
+//     status: "checked-in",
+//   },
+//   {
+//     RoomBookings: { RoomId: 2 },
+//     Name: "002",
+//     Category: "Deluxe Luxury",
+//     Description: "2 bedroom standard",
+//     Price: 25000,
+//     status: "unconfirmed",
+//   },
+//   {
+//     RoomBookings: { RoomId: 3 },
+//     Name: "003",
+//     Category: "Standard Aparte",
+//     Description: "3 bedroom standard",
+//     Price: 30000,
+//     status: "checked-out",
+//   },
+//   {
+//     RoomBookings: { RoomId: 4 },
+//     Name: "004",
+//     Category: "Standard Luxury",
+//     Description: "1 bedroom standard",
+//     Price: 35000,
+//     status: "unconfirmed",
+//   },
+//   {
+//     RoomBookings: { RoomId: 5 },
+//     Name: "005",
+//     Category: "Deluxe Aparte Luxury",
+//     Description: "1 bedroom standard",
+//     Price: 40000,
+//     status: "checked-in",
+//   },
+// ];
 
 function RoomTable() {
   const { rooms, isLoading } = useRooms();
@@ -63,14 +63,26 @@ function RoomTable() {
 
   if (filterValue === "all") filteredRooms = rooms;
 
-  if (filterValue === "checked-out")
-    filteredRooms = rooms.filter((room) => room.status === "checked-out");
+  if (filterValue === "available")
+    filteredRooms = rooms.filter((room) => room.status === "available");
 
-  if (filterValue === "checked-in")
-    filteredRooms = rooms.filter((room) => room.status === "checked-in");
+  if (filterValue === "cleaning")
+    filteredRooms = rooms.filter((room) => room.status === "cleaning");
 
-  if (filterValue === "unconfirmed")
-    filteredRooms = rooms.filter((room) => room.status === "unconfirmed");
+  if (filterValue === "unavailable")
+    filteredRooms = rooms.filter((room) => room.status === "unavailable");
+
+  if (!filteredRooms.length) {
+    if (filterValue === "available")
+      return <p>No room is available at the moment</p>;
+
+    if (filterValue === "cleaning")
+      return <p>No room is being cleaned at the moment</p>;
+
+    if (filterValue === "unavailable")
+      return <p>All rooms are available at the moment</p>;
+  }
+
   return (
     <Menus>
       <Table columns="0.6fr 1.3fr 1fr 1.9fr 1.2fr 0.3fr">

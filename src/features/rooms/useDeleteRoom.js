@@ -10,7 +10,7 @@ export function useDeleteRoom() {
     onSuccess: () => {
       toast.success("Room successfully deleted");
       queryClient.invalidateQueries({
-        queryKey: ["room"],
+        queryKey: ["rooms"],
       });
     },
     onError: (err) => toast.error(err.message),

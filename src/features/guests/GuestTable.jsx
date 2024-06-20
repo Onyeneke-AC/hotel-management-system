@@ -6,35 +6,35 @@ import Menus from "../../ui/Menus";
 import { useGuests } from "./useGuests";
 import Spinner from "../../ui/Spinner";
 
-const guests = [
-  {
-    id: 1,
-    name: "Ogunlade Temi",
-    email: "anthony@ogunlade",
-    phone: "08177323982",
-    address: "no. 8 lokoja crescent agbara estate, ogun state",
-    plateNumber: "76geyu",
-    emergencyContact: "09139810993",
-  },
-  {
-    id: 2,
-    name: "lettima teni",
-    email: "letima@ogunlade",
-    phone: "08177323982",
-    address: "no. 8 lokoja crescent agbara estate, ogun state",
-    plateNumber: "48530",
-    emergencyContact: "09139810993",
-  },
-  {
-    id: 3,
-    name: "Onye Anthony",
-    email: "temi@hwhg.com",
-    phone: "08177323982",
-    address: "no. 8 lokoja crescent agbara estate, ogun state",
-    plateNumber: "59329",
-    emergencyContact: "09139810993",
-  },
-];
+// const guests = [
+//   {
+//     id: 1,
+//     name: "Ogunlade Temi",
+//     email: "anthony@ogunlade",
+//     phone: "08177323982",
+//     address: "no. 8 lokoja crescent agbara estate, ogun state",
+//     plateNumber: "76geyu",
+//     emergencyContact: "09139810993",
+//   },
+//   {
+//     id: 2,
+//     name: "lettima teni",
+//     email: "letima@ogunlade",
+//     phone: "08177323982",
+//     address: "no. 8 lokoja crescent agbara estate, ogun state",
+//     plateNumber: "48530",
+//     emergencyContact: "09139810993",
+//   },
+//   {
+//     id: 3,
+//     name: "Onye Anthony",
+//     email: "temi@hwhg.com",
+//     phone: "08177323982",
+//     address: "no. 8 lokoja crescent agbara estate, ogun state",
+//     plateNumber: "59329",
+//     emergencyContact: "09139810993",
+//   },
+// ];
 
 function GuestTable() {
   const { guests, isLoading } = useGuests();

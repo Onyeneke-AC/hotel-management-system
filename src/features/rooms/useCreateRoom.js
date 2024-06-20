@@ -1,21 +1,21 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { createRoom as createRoomApi } from "../../services/apiRooms";
+import { createAndUpdateRoom as createRoomApi } from "../../services/apiRooms";
 
 export function useCreateRoom() {
   const queryClient = useQueryClient();
 
-  const { mutate: createRoom, isLoading: isCreating } = useMutation({
+  const { mutate: createRoom, isLoading: isCreatingRoom } = useMutation({
     mutationFn: createRoomApi,
     onSuccess: () => {
       toast.success("New room successfully created");
 
       queryClient.invalidateQueries({
-        queryKey: ["room"],
+        queryKey: ["rooms"],
       });
     },
     onError: (err) => toast.error(err.message),
   });
 
-  return { createRoom, isCreating };
+  return { createRoom, isCreatingRoom };
 }

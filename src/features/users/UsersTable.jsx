@@ -4,6 +4,10 @@ import Empty from "../../ui/Empty";
 import UsersRow from "./UsersRow";
 import { useUsers } from "./useUsers";
 import Spinner from "../../ui/Spinner";
+import { useSearchParams } from "react-router-dom";
+import { useState } from "react";
+import Pagination from "../../ui/Pagination";
+import { PAGE_SIZE } from "../../utils/constants";
 
 // const users = [
 //   {
@@ -50,9 +54,44 @@ import Spinner from "../../ui/Spinner";
 
 function UsersTable() {
   const { users, isLoading } = useUsers();
+  const [searchParams] = useSearchParams();
+  const [currentPage, setCurrentPage] = useState(1);
 
   if (isLoading) return <Spinner />;
   if (!users.length) return <Empty resourceName="user" />;
+
+  const filterValue = searchParams.get("searchValue");
+
+  let filteredUsers = users;
+
+  if (filterValue)
+    filteredUsers = users.filter((user) => {
+      const firstName = user.firstName || "";
+      const lastName = user.lastName || "";
+      const role = user.role || "";
+      const email = user.email || "";
+
+      return (
+        firstName.toLowerCase().includes(filterValue.toLowerCase()) ||
+        lastName.toLowerCase().includes(filterValue.toLowerCase()) ||
+        role.toLowerCase().includes(filterValue.toLowerCase()) ||
+        email.toLowerCase().includes(filterValue.toLowerCase())
+      );
+    });
+
+  const usersCount = filteredUsers.length;
+
+  const totalPages = Math.ceil(usersCount / PAGE_SIZE);
+
+  const startIndex = (currentPage - 1) * PAGE_SIZE;
+  const endIndex = startIndex + PAGE_SIZE;
+  const paginatedUsers = filteredUsers.slice(startIndex, endIndex);
+
+  function handlePageChange(newPage) {
+    setCurrentPage(newPage);
+  }
+
+  if (!filteredUsers.length) return <Empty resourceName="users" />;
 
   return (
     <Menus>
@@ -66,9 +105,17 @@ function UsersTable() {
           <div></div>
         </Table.Header>
         <Table.Body
-          data={users}
+          data={paginatedUsers}
           render={(user) => <UsersRow key={user.ID} user={user} />}
         />
+        <Table.Footer>
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+            count={usersCount}
+          />
+        </Table.Footer>
       </Table>
     </Menus>
   );
