@@ -148,10 +148,6 @@ function CreateGuestForm({ guestToEdit = {}, onCloseModal }) {
             disabled={isWorking}
             {...register("plateNumber", {
               required: "This field is required",
-              pattern: {
-                value: /^[A-Za-z]{1,3}-[A-Za-z]{1,2}-[0-9]{1,4}$/,
-                message: "Please enter a valid plate number",
-              },
             })}
           />
         </FormRow>

@@ -45,10 +45,10 @@ const StyledFormRow = styled.div`
     css`
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 2.4rem;
+      justify-content: flex-start;
+      gap: 10rem;
 
-      padding: 1.5rem;
+      padding: 2rem 1.5rem 1.5rem;
     `};
 
   ${(props) =>
