@@ -5,6 +5,9 @@ import Empty from "../../ui/Empty";
 import Menus from "../../ui/Menus";
 import { useGuests } from "./useGuests";
 import Spinner from "../../ui/Spinner";
+import { useState } from "react";
+import { PAGE_SIZE } from "../../utils/constants";
+import Pagination from "../../ui/Pagination";
 
 // const guests = [
 //   {
@@ -39,6 +42,7 @@ import Spinner from "../../ui/Spinner";
 function GuestTable() {
   const { guests, isLoading } = useGuests();
   const [searchParams] = useSearchParams();
+  const [currentPage, setCurrentPage] = useState(1);
 
   if (isLoading) return <Spinner />;
 
@@ -63,7 +67,15 @@ function GuestTable() {
       );
     });
 
-  if (!filteredGuests.length) return <Empty resourceName="guests" />;
+  const guestsCount = filteredGuests.length;
+
+  const startIndex = (currentPage - 1) * PAGE_SIZE;
+  const endIndex = startIndex + PAGE_SIZE;
+  const paginatedGuests = filteredGuests.slice(startIndex, endIndex);
+
+  function handlePageChange(newPage) {
+    setCurrentPage(newPage);
+  }
 
   return (
     <Menus>
@@ -78,9 +90,17 @@ function GuestTable() {
         </Table.Header>
 
         <Table.Body
-          data={filteredGuests}
+          data={filterValue ? filteredGuests : paginatedGuests}
           render={(guest) => <GuestRow key={guest.ID} guest={guest} />}
+          empty="This guest does not exist"
         />
+        <Table.Footer>
+          <Pagination
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+            count={guestsCount}
+          />
+        </Table.Footer>
       </Table>
     </Menus>
   );

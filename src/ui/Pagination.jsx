@@ -58,7 +58,9 @@ const PaginationButton = styled.button`
   }
 `;
 
-function Pagination({ currentPage, totalPages, count, onPageChange }) {
+function Pagination({ currentPage, count, onPageChange }) {
+  const totalPages = Math.ceil(count / PAGE_SIZE);
+
   function handlePageChange(newPage) {
     onPageChange(newPage);
   }

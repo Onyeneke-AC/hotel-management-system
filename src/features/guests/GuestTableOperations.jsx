@@ -4,7 +4,7 @@ import TableOperations from "../../ui/TableOperations";
 function GuestTableOperations() {
   return (
     <TableOperations>
-      <SearchGuest />
+      <SearchGuest placeholder="search guest..." />
     </TableOperations>
   );
 }

@@ -7,6 +7,7 @@ import Input from "../../ui/Input";
 import { useForm } from "react-hook-form";
 import { useCreateGuest } from "./useCreateGuest";
 import { useUpdateGuest } from "./useUpdateGuest";
+import { useNavigate } from "react-router-dom";
 
 const GuestHeader = styled.div`
   margin-bottom: 30px;
@@ -15,6 +16,7 @@ const GuestHeader = styled.div`
 function CreateGuestForm({ guestToEdit = {}, onCloseModal }) {
   const { createGuest, isCreatingGuest } = useCreateGuest();
   const { updateGuest, isUpdatingGuest } = useUpdateGuest();
+  const navigate = useNavigate();
 
   const isWorking = isCreatingGuest || isUpdatingGuest;
 
@@ -46,6 +48,7 @@ function CreateGuestForm({ guestToEdit = {}, onCloseModal }) {
         onSuccess: () => {
           reset();
           onCloseModal?.();
+          navigate("/guests");
         },
       });
     }

@@ -5,6 +5,9 @@ import RoomRow from "./RoomRow";
 import Empty from "../../ui/Empty";
 import { useRooms } from "./useRooms";
 import Spinner from "../../ui/Spinner";
+import { useState } from "react";
+import { PAGE_SIZE } from "../../utils/constants";
+import Pagination from "../../ui/Pagination";
 
 // const rooms = [
 //   {
@@ -52,6 +55,7 @@ import Spinner from "../../ui/Spinner";
 function RoomTable() {
   const { rooms, isLoading } = useRooms();
   const [searchParams] = useSearchParams();
+  const [currentPage, setCurrentPage] = useState(1);
 
   if (isLoading) return <Spinner />;
 
@@ -72,15 +76,14 @@ function RoomTable() {
   if (filterValue === "unavailable")
     filteredRooms = rooms.filter((room) => room.status === "unavailable");
 
-  if (!filteredRooms.length) {
-    if (filterValue === "available")
-      return <p>No room is available at the moment</p>;
+  const roomsCount = filteredRooms.length;
 
-    if (filterValue === "cleaning")
-      return <p>No room is being cleaned at the moment</p>;
+  const startIndex = (currentPage - 1) * PAGE_SIZE;
+  const endIndex = startIndex + PAGE_SIZE;
+  const paginatedRooms = filteredRooms.slice(startIndex, endIndex);
 
-    if (filterValue === "unavailable")
-      return <p>All rooms are available at the moment</p>;
+  function handlePageChange(newPage) {
+    setCurrentPage(newPage);
   }
 
   return (
@@ -95,9 +98,17 @@ function RoomTable() {
           <div></div>
         </Table.Header>
         <Table.Body
-          data={filteredRooms}
+          data={filterValue ? filteredRooms : paginatedRooms}
           render={(room) => <RoomRow key={room.ID} room={room} />}
+          empty={`No room is ${filterValue}`}
         />
+        <Table.Footer>
+          <Pagination
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+            count={roomsCount}
+          />
+        </Table.Footer>
       </Table>
     </Menus>
   );

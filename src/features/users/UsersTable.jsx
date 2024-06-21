@@ -81,8 +81,6 @@ function UsersTable() {
 
   const usersCount = filteredUsers.length;
 
-  const totalPages = Math.ceil(usersCount / PAGE_SIZE);
-
   const startIndex = (currentPage - 1) * PAGE_SIZE;
   const endIndex = startIndex + PAGE_SIZE;
   const paginatedUsers = filteredUsers.slice(startIndex, endIndex);
@@ -90,8 +88,6 @@ function UsersTable() {
   function handlePageChange(newPage) {
     setCurrentPage(newPage);
   }
-
-  if (!filteredUsers.length) return <Empty resourceName="users" />;
 
   return (
     <Menus>
@@ -104,14 +100,16 @@ function UsersTable() {
           <div>Emergency Contact</div>
           <div></div>
         </Table.Header>
+
         <Table.Body
-          data={paginatedUsers}
+          data={filterValue ? filteredUsers : paginatedUsers}
           render={(user) => <UsersRow key={user.ID} user={user} />}
+          empty="This user does not exist"
         />
+
         <Table.Footer>
           <Pagination
             currentPage={currentPage}
-            totalPages={totalPages}
             onPageChange={handlePageChange}
             count={usersCount}
           />

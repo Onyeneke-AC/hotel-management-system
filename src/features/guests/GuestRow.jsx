@@ -42,7 +42,7 @@ function GuestRow({ guest }) {
     address,
     emergencyContact,
     plateNumber,
-    ID: customerID,
+    ID,
   } = guest;
 
   const navigate = useNavigate();
@@ -64,12 +64,12 @@ function GuestRow({ guest }) {
 
       <Modal>
         <Menus.Menu>
-          <Menus.Toggle id={customerID} />
+          <Menus.Toggle id={ID} />
 
-          <Menus.List id={customerID}>
+          <Menus.List id={ID}>
             <Menus.Button
               icon={<HiEye />}
-              onClick={() => navigate(`/guest/${customerID}`)}
+              onClick={() => navigate(`/guest/${ID}`)}
             >
               See Details
             </Menus.Button>

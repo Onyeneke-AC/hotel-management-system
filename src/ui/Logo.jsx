@@ -5,12 +5,12 @@ const StyledLogo = styled.div`
 `;
 
 const Img = styled.img`
-  height: 9.6rem;
+  height: 15rem;
   width: auto;
 `;
 
 function Logo() {
-  const src = "Nothing yet";
+  const src = "./timeless-logo.png";
   return (
     <StyledLogo>
       <Img src={src} alt="Logo" />

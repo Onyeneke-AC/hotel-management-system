@@ -1,16 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
-import { getGuestById } from "../../services/apiGuests";
+import { getRoomById } from "../../services/apiRooms";
 
 export function useRoom(roomID) {
   const roomId = roomID;
 
   const {
-    isLoadingRoom,
+    isLoading: isLoadingRoom,
     data: room,
     error,
   } = useQuery({
     queryKey: ["room", roomId],
-    queryFn: () => getGuestById(roomId),
+    queryFn: () => getRoomById(roomId),
     retry: false,
   });
   return { isLoadingRoom, room, error };

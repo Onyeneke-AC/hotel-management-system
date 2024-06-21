@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import Input from "./Input";
 
-function SearchGuest() {
+function SearchGuest({ placeholder }) {
   const [query, setQuery] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -18,7 +18,7 @@ function SearchGuest() {
 
   return (
     <Input
-      placeholder={`search guest...`}
+      placeholder={`${placeholder}`}
       value={query}
       onChange={(e) => setQuery(e.target.value)}
       type="search"

@@ -8,7 +8,7 @@ export function useGuest(customerID) {
   const guestId = customerID || paramGuestId;
 
   const {
-    isLoading,
+    isLoading: isLoadingGuest,
     data: guest,
     error,
   } = useQuery({
@@ -16,5 +16,5 @@ export function useGuest(customerID) {
     queryFn: () => getGuestById(guestId),
     retry: false,
   });
-  return { isLoading, guest, error };
+  return { isLoadingGuest, guest, error };
 }

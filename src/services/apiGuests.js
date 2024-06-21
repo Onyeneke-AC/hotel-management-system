@@ -16,19 +16,16 @@ export async function getGuests() {
   }
 }
 
-export async function getGuestById(id) {
+export async function getGuestById(guestId) {
   try {
-    const res = await fetch(`${API_URL}/customers/${id}`);
+    const res = await fetch(`${API_URL}/customers/${guestId}`);
 
     if (!res.ok) {
       throw Error("Error loading the data");
     }
 
-    console.log(res);
-
     const data = await res.json();
 
-    console.log(data);
     return data;
   } catch (error) {
     throw error;

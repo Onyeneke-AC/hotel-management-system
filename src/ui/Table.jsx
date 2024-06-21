@@ -58,6 +58,13 @@ const Empty = styled.p`
   margin: 2.4rem;
 `;
 
+const StyledEmptyRow = styled.p`
+  font-size: 1.6rem;
+  font-weight: 500;
+  text-align: center;
+  margin: 2.4rem;
+`;
+
 const TableContext = createContext();
 
 function Table({ columns, children }) {
@@ -91,6 +98,10 @@ function Body({ data, render, empty }) {
   if (!data.length) return <Empty>{empty}</Empty>;
 
   return <StyledBody>{data.map(render)}</StyledBody>;
+}
+
+function EmptyRow({ data }) {
+  return <StyledEmptyRow>This {data} does not exist</StyledEmptyRow>;
 }
 
 Table.Header = Header;

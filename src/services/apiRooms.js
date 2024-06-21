@@ -16,7 +16,7 @@ export async function getRooms() {
   }
 }
 
-export async function getRoom(id) {
+export async function getRoomById(id) {
   try {
     const res = await fetch(`${API_URL}/rooms/${id}`);
 
@@ -72,4 +72,4 @@ export async function createAndUpdateRoom(newRoomData, id) {
   }
 }
 
-export async function deleteRoom(id) {}
+// export async function deleteRoom(id) {}

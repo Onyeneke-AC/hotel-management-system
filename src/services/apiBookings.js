@@ -1,6 +1,8 @@
+const API_URL = "http://127.0.0.1:3000/api/v1";
+
 export async function getBookings() {
   try {
-    const res = await fetch("http://127.0.0.1:3000/api/v1/bookings");
+    const res = await fetch(`${API_URL}/bookings`);
 
     if (!res.ok) {
       throw Error("Error loading the data");
@@ -8,7 +10,6 @@ export async function getBookings() {
 
     const data = await res.json();
 
-    console.log(data);
     return data;
   } catch (error) {
     throw error;
@@ -17,15 +18,13 @@ export async function getBookings() {
 
 export async function getBooking(id) {
   try {
-    const res = await fetch(`http://127.0.0.1:3000/api/v1/bookings/${id}`);
+    const res = await fetch(`${API_URL}/bookings/${id}`);
 
     if (!res.ok) {
       throw Error("Error loading the data");
     }
 
     const data = await res.json();
-
-    console.log(data);
 
     return data;
   } catch (error) {

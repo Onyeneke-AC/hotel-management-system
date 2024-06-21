@@ -1,6 +1,6 @@
 import Button from "../../ui/Button";
 import Modal from "../../ui/Modal";
-import CreateBookingForm from "./CreateBookingForm";
+import CreateGuestForm from "../guests/CreateGuestForm";
 import { HiPlus } from "react-icons/hi2";
 
 function AddBooking() {
@@ -13,7 +13,7 @@ function AddBooking() {
           </Button>
         </Modal.Open>
         <Modal.Window name="booking-form">
-          <CreateBookingForm />
+          <CreateGuestForm />
         </Modal.Window>
       </Modal>
     </div>
