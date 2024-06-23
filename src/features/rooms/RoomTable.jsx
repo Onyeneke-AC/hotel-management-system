@@ -53,11 +53,11 @@ import Pagination from "../../ui/Pagination";
 // ];
 
 function RoomTable() {
-  const { rooms, isLoading } = useRooms();
+  const { rooms, isLoadingRooms } = useRooms();
   const [searchParams] = useSearchParams();
   const [currentPage, setCurrentPage] = useState(1);
 
-  if (isLoading) return <Spinner />;
+  if (isLoadingRooms) return <Spinner />;
 
   if (!rooms.length) return <Empty resourceName="rooms" />;
 

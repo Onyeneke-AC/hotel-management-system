@@ -86,6 +86,7 @@ function BookingRow({ booking }) {
               receptionist={receptionist}
               customerID={customerID}
               ID={ID}
+              booking={booking}
             />
           </Table.Row>
         ))

@@ -5,7 +5,7 @@ export async function getGuests() {
     const res = await fetch(`${API_URL}/customers`);
 
     if (!res.ok) {
-      throw Error("Error loading the data");
+      throw Error("Error loading guests");
     }
 
     const data = await res.json();
@@ -21,7 +21,7 @@ export async function getGuestById(guestId) {
     const res = await fetch(`${API_URL}/customers/${guestId}`);
 
     if (!res.ok) {
-      throw Error("Error loading the data");
+      throw Error("Error loading the guest data");
     }
 
     const data = await res.json();
@@ -45,7 +45,7 @@ export async function createAndUpdateGuest(newGuestData, id) {
 
       if (!res.ok) {
         const errorResponse = await res.json();
-        throw new Error(errorResponse.message || "Failed updating user");
+        throw new Error(errorResponse.message || "Failed updating guest");
       }
     }
 
@@ -60,7 +60,7 @@ export async function createAndUpdateGuest(newGuestData, id) {
 
       if (!res.ok) {
         const errorResponse = await res.json();
-        throw new Error(errorResponse.message || "Failed creating user");
+        throw new Error(errorResponse.message || "Failed creating guest");
       }
 
       const data = await res.json();

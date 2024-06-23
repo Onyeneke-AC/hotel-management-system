@@ -3,12 +3,12 @@ import { getRooms } from "../../services/apiRooms";
 
 export function useRooms() {
   const {
-    isLoading,
+    isLoading: isLoadingRooms,
     data: rooms,
     error,
   } = useQuery({
     queryKey: ["rooms"],
     queryFn: getRooms,
   });
-  return { isLoading, rooms, error };
+  return { isLoadingRooms, rooms, error };
 }

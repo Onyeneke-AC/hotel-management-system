@@ -46,7 +46,7 @@ const StyledFormRow = styled.div`
       display: flex;
       align-items: center;
       justify-content: flex-start;
-      gap: 10rem;
+      gap: 7rem;
 
       padding: 2rem 1.5rem 1.5rem;
     `};

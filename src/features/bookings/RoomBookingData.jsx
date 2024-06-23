@@ -48,8 +48,15 @@ const StyledOther = styled.div`
   justify-content: center;
 `;
 
-function RoomBookingData({ roomBooking, receptionist, customerID, ID }) {
+function RoomBookingData({
+  roomBooking,
+  receptionist,
+  customerID,
+  ID,
+  booking,
+}) {
   const {
+    ID: roomBookingId,
     numberOfNights,
     checkedIn,
     // checkedOut,
@@ -69,8 +76,6 @@ function RoomBookingData({ roomBooking, receptionist, customerID, ID }) {
   const roomData = room && room.length > 0 ? room[0] : null;
 
   const roomName = roomData?.name || "Unknown Room";
-
-  console.log(room);
 
   const statusToTagName = {
     true: "green",
@@ -105,7 +110,7 @@ function RoomBookingData({ roomBooking, receptionist, customerID, ID }) {
           {format(new Date(endDateTime), "MMM dd yyyy")}
         </span>
       </Stacked>{" "}
-      <Tag type={statusToTagName[checkedIn]} marks="mark">
+      <Tag type={statusToTagName[checkedIn]} $marks="mark">
         {checkedIn === true ? <HiOutlineCheck /> : <HiOutlineXMark />}{" "}
         <span style={{ fontSize: "1rem" }}>{receptionist}</span>
       </Tag>
@@ -129,7 +134,10 @@ function RoomBookingData({ roomBooking, receptionist, customerID, ID }) {
             </Menus.List>
 
             <Modal.Window name="edit">
-              <CreateBookingForm />
+              <CreateBookingForm
+                bookingToEdit={booking}
+                roomBookingId={roomBookingId}
+              />
             </Modal.Window>
           </Menus.Menu>
         </Modal>

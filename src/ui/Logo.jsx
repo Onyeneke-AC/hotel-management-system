@@ -10,7 +10,7 @@ const Img = styled.img`
 `;
 
 function Logo() {
-  const src = "./timeless-logo.png";
+  const src = "/timeless-logo.png";
   return (
     <StyledLogo>
       <Img src={src} alt="Logo" />

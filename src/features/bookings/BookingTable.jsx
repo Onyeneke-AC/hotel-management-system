@@ -1,5 +1,3 @@
-import { useSearchParams } from "react-router-dom";
-
 import { useBookings } from "./useBookings";
 
 import BookingRow from "./BookingRow";
@@ -57,8 +55,6 @@ import Spinner from "../../ui/Spinner";
 // ];
 
 function BookingTable() {
-  const [searchParams] = useSearchParams();
-
   const { bookings, isLoading } = useBookings();
 
   if (isLoading) return <Spinner />;

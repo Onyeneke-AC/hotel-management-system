@@ -12,7 +12,7 @@ const Tag = styled.span`
   align-items: center;
 
   ${(props) =>
-    props.marks === "mark" &&
+    props.$marks &&
     css`
       font-size: 1.5rem;
       font-weight: 900;

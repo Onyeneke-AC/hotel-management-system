@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import styled from "styled-components";
 
 const StyledCheckbox = styled.div`
@@ -25,27 +26,26 @@ const StyledCheckbox = styled.div`
   }
 `;
 
-function Checkbox({
-  children,
-  id,
-  onChange,
-  disabled = false,
-  checked,
-  defaultChecked,
-}) {
-  return (
-    <StyledCheckbox>
-      <input
-        type="checkbox"
-        disabled={disabled}
-        checked={checked}
-        id={id}
-        onChange={onChange}
-        defaultChecked={defaultChecked}
-      />
-      <label htmlFor={!disabled ? id : ""}>{children}</label>
-    </StyledCheckbox>
-  );
-}
+const Checkbox = forwardRef(
+  (
+    { children, id, onChange, disabled = false, checked, defaultChecked },
+    ref
+  ) => {
+    return (
+      <StyledCheckbox>
+        <input
+          ref={ref}
+          type="checkbox"
+          disabled={disabled}
+          checked={checked}
+          id={id}
+          onChange={onChange}
+          defaultChecked={defaultChecked}
+        />
+        <label htmlFor={!disabled ? id : ""}>{children}</label>
+      </StyledCheckbox>
+    );
+  }
+);
 
 export default Checkbox;
