@@ -32,6 +32,22 @@ export async function getGuestById(guestId) {
   }
 }
 
+export async function getGuestBookings(guestId) {
+  try {
+    const res = await fetch(`${API_URL}/customers/${guestId}/bookings`);
+
+    if (!res.ok) {
+      throw Error("Error loading the guest's bookings");
+    }
+
+    const data = await res.json();
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
 export async function createAndUpdateGuest(newGuestData, id) {
   try {
     if (id) {

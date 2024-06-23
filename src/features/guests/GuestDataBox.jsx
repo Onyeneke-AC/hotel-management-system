@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { format } from "date-fns";
 import { HiOutlineDocument, HiOutlineHomeModern } from "react-icons/hi2";
+import { useGuestBookings } from "./useGuestBookings";
 
 const StyledGuestDataBox = styled.section`
   background-color: var(--color-grey-0);
@@ -71,6 +72,8 @@ function GuestDataBox({ guest }) {
     bookings,
   } = guest;
 
+  const { guestBookings, isLoadingGuestBookings } = useGuestBookings();
+
   const carPlate = plateNumber || "No car parked in";
 
   return (
@@ -98,8 +101,9 @@ function GuestDataBox({ guest }) {
           </p>
           <p>{address}</p>
           <span>&bull;</span>
-          {!bookings === null || bookings?.length ? (
-            <p>{bookings.length} bookings with Timeless</p>
+          {(!isLoadingGuestBookings && !guestBookings === null) ||
+          guestBookings?.length ? (
+            <p>{guestBookings.length} booking(s) with Timeless</p>
           ) : (
             <p>No previous booking with Timeless</p>
           )}

@@ -5,6 +5,9 @@ import Table from "../../ui/Table";
 import Empty from "../../ui/Empty";
 import Menus from "../../ui/Menus";
 import Spinner from "../../ui/Spinner";
+import { useState } from "react";
+import { PAGE_SIZE } from "../../utils/constants";
+import Pagination from "../../ui/Pagination";
 
 // const bookings = [
 //   {
@@ -57,9 +60,21 @@ import Spinner from "../../ui/Spinner";
 function BookingTable() {
   const { bookings, isLoading } = useBookings();
 
+  const [currentPage, setCurrentPage] = useState(1);
+
   if (isLoading) return <Spinner />;
 
   if (!bookings.length) return <Empty resourceName="bookings" />;
+
+  const bookingsCount = bookings.length;
+
+  const startIndex = (currentPage - 1) * PAGE_SIZE;
+  const endIndex = startIndex + PAGE_SIZE;
+  const paginatedBookings = bookings.slice(startIndex, endIndex);
+
+  function handlePageChange(newPage) {
+    setCurrentPage(newPage);
+  }
 
   return (
     <Menus>
@@ -74,11 +89,18 @@ function BookingTable() {
         </Table.Header>
 
         <Table.Body
-          data={bookings}
+          data={paginatedBookings}
           render={(booking) => (
             <BookingRow key={booking.ID} booking={booking} />
           )}
         />
+        <Table.Footer>
+          <Pagination
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+            count={bookingsCount}
+          />
+        </Table.Footer>
       </Table>
     </Menus>
   );

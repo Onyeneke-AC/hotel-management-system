@@ -1,20 +1,20 @@
 import styled from "styled-components";
 import { useRoom } from "../rooms/useRoom";
 import SpinnerMini from "../../ui/SpinnerMini";
-import { format, isToday, parseISO } from "date-fns";
 import { formatCurrency, formatDistanceFromNow } from "../../utils/helpers";
-import Tag from "../../ui/Tag";
+import { format, isToday, parseISO } from "date-fns";
 import {
   HiEye,
   HiOutlineCheck,
   HiOutlineXMark,
   HiPencil,
 } from "react-icons/hi2";
-import { useNavigate } from "react-router-dom";
-import { useGuest } from "../guests/useGuest";
+import Tag from "../../ui/Tag";
 import Modal from "../../ui/Modal";
 import Menus from "../../ui/Menus";
-import CreateBookingForm from "./CreateBookingForm";
+import CreateBookingForm from "../bookings/CreateBookingForm";
+import { useNavigate } from "react-router-dom";
+import Table from "../../ui/Table";
 
 const Stacked = styled.div`
   display: flex;
@@ -48,30 +48,28 @@ const StyledOther = styled.div`
   justify-content: center;
 `;
 
-function RoomBookingData({
-  roomBooking,
-  receptionist,
-  customerID,
-  ID,
-  booking,
-}) {
+function GuestBookingRow({ booking }) {
   const {
-    ID: roomBookingId,
-    numberOfNights,
+    roomBookings,
+    amount,
+    isPaid,
+    paymentMethod,
+    receptionist,
+    ID: bookingId,
+  } = booking;
+
+  const {
     checkedIn,
-    // checkedOut,
+    roomID,
     startDate,
     endDate,
-    amount,
-    roomID,
-  } = roomBooking;
+    numberOfNights,
+    ID: roomBookingId,
+  } = roomBookings[0];
 
-  const { guest, isLoadingGuest } = useGuest(customerID);
-  const { isLoadingRoom, room } = useRoom(roomID);
+  const { room, isLoadingRoom } = useRoom(roomID);
 
   const navigate = useNavigate();
-
-  const { firstName, lastName, email } = guest || {};
 
   const roomData = room && room.length > 0 ? room[0] : null;
 
@@ -86,18 +84,9 @@ function RoomBookingData({
   const endDateTime = parseISO(endDate);
 
   return (
-    <>
+    <Table.Row>
       <Room>{isLoadingRoom ? <SpinnerMini /> : roomName}</Room>
-      <Stacked>
-        {isLoadingGuest ? (
-          <SpinnerMini />
-        ) : (
-          <>
-            <span>{firstName + " " + lastName}</span>
-            <span>{email}</span>
-          </>
-        )}
-      </Stacked>
+      <Amount>{formatCurrency(amount)}</Amount>
       <Stacked>
         <span>
           {isToday(new Date(startDateTime))
@@ -109,21 +98,26 @@ function RoomBookingData({
           {format(new Date(startDateTime), "MMM dd yyyy")} &mdash;{" "}
           {format(new Date(endDateTime), "MMM dd yyyy")}
         </span>
-      </Stacked>{" "}
+      </Stacked>
+      <Tag type={statusToTagName[isPaid]} $marks="mark">
+        {isPaid === true ? <HiOutlineCheck /> : <HiOutlineXMark />}{" "}
+        {isPaid && <span style={{ fontSize: "1rem" }}>{paymentMethod}</span>}
+      </Tag>
       <Tag type={statusToTagName[checkedIn]} $marks="mark">
         {checkedIn === true ? <HiOutlineCheck /> : <HiOutlineXMark />}{" "}
         <span style={{ fontSize: "1rem" }}>{receptionist}</span>
       </Tag>
-      <Amount>{formatCurrency(amount)}</Amount>
       <StyledOther>
         <Modal>
           <Menus.Menu>
-            <Menus.Toggle id={ID} />
+            <Menus.Toggle id={bookingId} />
 
-            <Menus.List id={ID}>
+            <Menus.List id={bookingId}>
               <Menus.Button
                 icon={<HiEye />}
-                onClick={() => navigate(`/booking/${ID}/${roomBookingId}`)}
+                onClick={() =>
+                  navigate(`/booking/${bookingId}/${roomBookingId}`)
+                }
               >
                 See Details
               </Menus.Button>
@@ -142,8 +136,8 @@ function RoomBookingData({
           </Menus.Menu>
         </Modal>
       </StyledOther>
-    </>
+    </Table.Row>
   );
 }
 
-export default RoomBookingData;
+export default GuestBookingRow;

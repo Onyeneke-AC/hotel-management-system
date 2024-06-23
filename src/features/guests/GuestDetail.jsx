@@ -12,31 +12,13 @@ import Spinner from "../../ui/Spinner";
 
 import CreateBookingForm from "../bookings/CreateBookingForm";
 import GuestDataBox from "./GuestDataBox";
+import GuestBookingsTable from "./GuestBookingsTable";
 
 const HeadingGroup = styled.div`
   display: flex;
   gap: 2.4rem;
   align-items: center;
 `;
-
-// const booking = {
-//   customerID: 1,
-//   receptionist: "Anna",
-//   amount: 1000,
-//   isPaid: false,
-//   paymentMethod: "Card Transfer",
-//   isComplementary: false,
-//   created_at: "2024-06-16T00:00:00",
-//   roomBookings: {
-//     numberOfNights: 4,
-//     checkedIn: false,
-//     checkedOut: true,
-//     startDate: "2024-06-16T00:00:00",
-//     endDate: "2024-06-20T00:00:00",
-//     bookingId: 1,
-//     roomId: 10,
-//   },
-// };
 
 function GuestDetail() {
   const { guest, isLoadingGuest } = useGuest();
@@ -45,12 +27,7 @@ function GuestDetail() {
 
   if (isLoadingGuest) return <Spinner />;
 
-  const { ID: customerID, bookings } = guest;
-
-  // const statusToTagName = {
-  //   true: "green",
-  //   false: "silver",
-  // };
+  const { ID: customerID } = guest;
 
   return (
     <>
@@ -80,7 +57,7 @@ function GuestDetail() {
         </Button>
       </ButtonGroup>
 
-      {/*Populate the bookings of the guest here*/}
+      <GuestBookingsTable />
     </>
   );
 }

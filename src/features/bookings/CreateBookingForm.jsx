@@ -197,7 +197,8 @@ function CreateBookingForm({
               <DatePicker
                 selected={
                   field.value ||
-                  new Date(selectedBooking && selectedBooking.startDate)
+                  (isUpdateSession &&
+                    new Date(selectedBooking && selectedBooking.startDate))
                 }
                 onChange={(date) => field.onChange(date)}
                 placeholderText="Select a start date"
@@ -227,7 +228,8 @@ function CreateBookingForm({
               <DatePicker
                 selected={
                   field.value ||
-                  new Date(selectedBooking && selectedBooking.endDate)
+                  (isUpdateSession &&
+                    new Date(selectedBooking && selectedBooking.endDate))
                 }
                 onChange={(date) => field.onChange(date)}
                 placeholderText="Select an end date"
