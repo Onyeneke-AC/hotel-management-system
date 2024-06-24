@@ -111,11 +111,7 @@ function CreateBookingForm({
       isPaid,
       paymentMethod,
       isComplementary,
-      checkedIn,
-      startDate,
-      endDate,
-      roomName,
-      roomID,
+      roomBookings: [{ checkedIn, startDate, endDate, roomName, roomID }],
     };
 
     if (isUpdateSession) {

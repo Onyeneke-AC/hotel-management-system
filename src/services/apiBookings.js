@@ -32,6 +32,24 @@ export async function getBooking(id) {
   }
 }
 
+export async function getRoomBooking(bookingId, roomBookingId) {
+  try {
+    const res = await fetch(
+      `${API_URL}/bookings/booking/${bookingId}/roomBooking/${roomBookingId}`
+    );
+
+    if (!res.ok) {
+      throw Error("Error loading the data");
+    }
+
+    const data = await res.json();
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
 export async function createAndUpdateBooking(newBookingData, id) {
   try {
     if (id) {
@@ -75,4 +93,16 @@ export async function createAndUpdateBooking(newBookingData, id) {
 
 // export async function editBooking(editedBookingData, id) {}
 
-export async function deleteBooking(id) {}
+export async function deleteBooking(bookingId) {
+  try {
+    const res = await fetch(`${API_URL}/bookings/${bookingId}`, {
+      method: "DELETE",
+    });
+
+    if (!res.ok) {
+      throw Error("Error deleting the data");
+    }
+  } catch (error) {
+    throw error;
+  }
+}

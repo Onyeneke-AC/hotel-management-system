@@ -1,5 +1,5 @@
 import styled from "styled-components";
-// import Logo from "../ui/Logo";
+import Logo from "../ui/Logo";
 import Heading from "../ui/Heading";
 import LoginForm from "../features/authentication/LoginForm";
 
@@ -13,11 +13,19 @@ const LoginLayout = styled.main`
   background-color: var(--color-grey-50);
 `;
 
+const LogoLayout = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
 function Login() {
   return (
     <LoginLayout>
-      {/* <Logo /> */}
-      <Heading as="h4">Log in to your account</Heading>
+      <LogoLayout>
+        <Logo type="login" />
+        <Heading as="h4">Log in to your account</Heading>
+      </LogoLayout>
       <LoginForm />
     </LoginLayout>
   );

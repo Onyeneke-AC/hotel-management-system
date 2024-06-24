@@ -63,7 +63,7 @@ function RoomTable() {
 
   const filterValue = searchParams.get("status") || "all";
 
-  let filteredRooms;
+  let filteredRooms = rooms;
 
   if (filterValue === "all") filteredRooms = rooms;
 
@@ -98,7 +98,7 @@ function RoomTable() {
           <div></div>
         </Table.Header>
         <Table.Body
-          data={filterValue ? filteredRooms : paginatedRooms}
+          data={filterValue !== "all" ? filteredRooms : paginatedRooms}
           render={(room) => <RoomRow key={room.ID} room={room} />}
           empty={`No room is ${filterValue}`}
         />

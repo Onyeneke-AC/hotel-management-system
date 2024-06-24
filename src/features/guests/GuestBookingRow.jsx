@@ -49,6 +49,7 @@ const StyledOther = styled.div`
 `;
 
 function GuestBookingRow({ booking }) {
+  const navigate = useNavigate();
   const {
     roomBookings,
     amount,
@@ -65,11 +66,9 @@ function GuestBookingRow({ booking }) {
     endDate,
     numberOfNights,
     ID: roomBookingId,
-  } = roomBookings[0];
+  } = roomBookings?.[0] || {};
 
   const { room, isLoadingRoom } = useRoom(roomID);
-
-  const navigate = useNavigate();
 
   const roomData = room && room.length > 0 ? room[0] : null;
 
@@ -79,6 +78,10 @@ function GuestBookingRow({ booking }) {
     true: "green",
     false: "silver",
   };
+
+  if (roomBookings === null || roomBookings.length === 0) {
+    return <div>"This guest has no previous or current booking"</div>;
+  }
 
   const startDateTime = parseISO(startDate);
   const endDateTime = parseISO(endDate);

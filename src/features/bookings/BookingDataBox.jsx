@@ -10,6 +10,8 @@ import {
 import DataItem from "../../ui/DataItem";
 
 import { formatDistanceFromNow, formatCurrency } from "../../utils/helpers";
+import { useRoom } from "../rooms/useRoom";
+import { useGuest } from "../guests/useGuest";
 
 const StyledBookingDataBox = styled.section`
   /* Box */
@@ -51,7 +53,7 @@ const Header = styled.header`
 `;
 
 const Section = styled.section`
-  padding: 3.2rem 4rem 1.2rem;
+  padding: 3.2rem 4rem 3.2rem;
 `;
 
 const Guest = styled.div`
@@ -95,43 +97,38 @@ const Price = styled.div`
 
 const Footer = styled.footer`
   padding: 1.6rem 4rem;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   color: var(--color-grey-500);
-  text-align: right;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
-// we need to send the customer id and roomId to
-// their respective react query functions to retrieve
-// the data for the particular field
+// const dummy = {
+//   firstName: "Moha",
+//   name: "001",
+//   email: "anthony@gmail.com",
+//   phone: "08197549375",
+// };
 
-const dummy = {
-  firstName: "Moha",
-  name: "001",
-  email: "anthony@gmail.com",
-  phone: "08197549375",
-};
-
-// A purely presentational component
-function BookingDataBox({ booking }) {
+function BookingDataBox({ booking, roomBooking }) {
   const {
-    // customerID,
+    customerID,
     amount,
     isPaid,
     paymentMethod,
     isComplementary,
-    created_at,
-    roomBookings: {
-      numberOfNights,
-      //   checkedIn,
-      //   checkedOut,
-      startDate,
-      endDate,
-      //   bookingID,
-      //   roomID,
-    },
+    CreatedAt,
+    UpdatedAt,
   } = booking;
 
-  const { firstName, name: roomName, email, phone } = dummy;
+  const { numberOfNights, startDate, endDate, roomID } = roomBooking;
+
+  const { isLoadingRoom, room } = useRoom(roomID);
+  const { guest, isLoadingGuest } = useGuest(customerID);
+
+  const { name } = room || {};
+  const { firstName, lastName, email, phone } = guest || {};
 
   return (
     <StyledBookingDataBox>
@@ -139,7 +136,8 @@ function BookingDataBox({ booking }) {
         <div>
           <HiOutlineHomeModern />
           <p>
-            {numberOfNights} nights in room <span>{roomName}</span>
+            {numberOfNights} nights in room{" "}
+            <span>{!isLoadingRoom && name}</span>
           </p>
         </div>
 
@@ -153,18 +151,14 @@ function BookingDataBox({ booking }) {
       </Header>
 
       <Section>
-        <Guest>
-          <p>{firstName}</p>
-          <span>&bull;</span>
-          <p>{email}</p>
-          <span>&bull;</span>
-          <p>{phone}</p>
-        </Guest>
-
-        {isComplementary && (
-          <span style={{ fontStyle: "bold", fontWeight: 500 }}>
-            This customer is complementary
-          </span>
+        {!isLoadingGuest && (
+          <Guest>
+            <p>{firstName + " " + lastName}</p>
+            <span>&bull;</span>
+            <p>{email}</p>
+            <span>&bull;</span>
+            <p>{phone}</p>
+          </Guest>
         )}
 
         <Price isPaid={isPaid}>
@@ -177,7 +171,17 @@ function BookingDataBox({ booking }) {
       </Section>
 
       <Footer>
-        <p>Booked {format(new Date(created_at), "EEE, MMM dd yyyy, p")}</p>
+        <div>
+          {isComplementary && (
+            <span style={{ fontStyle: "bold", fontWeight: 500 }}>
+              This customer is complementary
+            </span>
+          )}
+        </div>
+        <p>
+          Booked {format(new Date(CreatedAt), "EEE, MMM dd yyyy, p")} (Last
+          Updated: {format(new Date(UpdatedAt), "EEE, MMM dd yyyy, p")})
+        </p>
       </Footer>
     </StyledBookingDataBox>
   );

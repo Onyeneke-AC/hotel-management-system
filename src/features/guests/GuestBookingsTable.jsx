@@ -15,7 +15,8 @@ function GuestBookingsTable() {
 
   if (isLoadingGuestBookings) return <Spinner />;
 
-  if (!guestBookings.length) return <Empty resourceName="bookings" />;
+  if (!guestBookings.length)
+    return <Empty resourceName="previous or current bookings" />;
 
   const guestBookingsCount = guestBookings.length;
 
