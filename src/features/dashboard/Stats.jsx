@@ -5,33 +5,42 @@ import {
   HiOutlineChartBar,
 } from "react-icons/hi2";
 import Stat from "./Stat";
+import { useSummary } from "./useSummary";
+import Spinner from "../../ui/Spinner";
+import { formatCurrency } from "../../utils/helpers";
 
 function Stats() {
+  const { summary, isLoadingSummary } = useSummary();
+
+  if (isLoadingSummary) return <Spinner />;
+
+  const { checkIn, checkOut, numberOfBookings, sumAmount } = summary;
+
   return (
     <>
       <Stat
         title="Bookings"
         color="blue"
         icon={<HiOutlineBriefcase />}
-        value="23"
-      />
-      <Stat
-        title="Sales"
-        color="green"
-        icon={<HiOutlineBanknotes />}
-        value="34$"
+        value={numberOfBookings}
       />
       <Stat
         title="Check ins"
         color="indigo"
         icon={<HiOutlineCalendarDays />}
-        value="34"
+        value={checkIn}
       />
       <Stat
-        title="Occupancy rate"
+        title="Check outs"
         color="yellow"
         icon={<HiOutlineChartBar />}
-        value="30%"
+        value={checkOut}
+      />
+      <Stat
+        title="Sales made"
+        color="green"
+        icon={<HiOutlineBanknotes />}
+        value={formatCurrency(sumAmount)}
       />
     </>
   );

@@ -252,7 +252,7 @@ function CreateBookingForm({
             id="checkedIn"
             ref={checkedInRef}
             checked={checkedIn}
-            disabled={isWorking}
+            disabled={isWorking || !isPaid}
             onChange={() => setCheckedIn(!checkedIn)}
           >
             Check In (only after payment)
@@ -262,7 +262,9 @@ function CreateBookingForm({
             ref={isComplementaryRef}
             checked={isComplementary}
             disabled={isWorking}
-            onChange={() => setIsComplementary(!isComplementary)}
+            onChange={() => {
+              setIsComplementary(!isComplementary);
+            }}
           >
             Complementary Guest
           </Checkbox>

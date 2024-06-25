@@ -35,7 +35,25 @@ export async function signupAndUpdate(newUserData, id) {
   }
 }
 
-export async function login({ email, password }) {}
+export async function login(userData) {
+  try {
+    const res = await fetch(`${API_URL}/users/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    });
+
+    if (!res.ok) throw Error("Error logging in");
+
+    const data = await res.json();
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
 
 export async function getUsers() {
   try {
@@ -89,4 +107,22 @@ export async function deleteUser(userID) {
   }
 }
 
-export async function logout() {}
+export async function logout() {
+  try {
+    const res = await fetch(`${API_URL}/users/auth/logout`, {
+      method: "POST",
+    });
+
+    if (!res.ok) {
+      throw Error("Error logging out");
+    }
+
+    const data = await res.json();
+
+    console.log(data);
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
