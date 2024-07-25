@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useUserDetails } from "../../context/UserDetailsContext";
 // import { useUser } from "../authentication/useUser";
 
 const StyledUserAvatar = styled.div`
@@ -22,16 +23,19 @@ const Avatar = styled.img`
 `;
 
 function UserAvatar() {
-  //   const { user } = useUser();
+  const { userDetails } = useUserDetails();
 
-  //   const { fullName, avatar } = user.user_metadata;
-
-  const fullName = "Lettima Asuko";
+  const { firstName, lastName, role } = userDetails || {};
 
   return (
     <StyledUserAvatar>
-      <Avatar src="/default-user.jpg" alt={`Avatar of ${fullName}`} />
-      <span>{fullName}</span>
+      <Avatar src="/default-user.jpg" alt={`Avatar of ${lastName}`} />
+      <span>
+        {firstName &&
+          lastName &&
+          role &&
+          firstName + " " + lastName + " (" + role + ")"}
+      </span>
     </StyledUserAvatar>
   );
 }

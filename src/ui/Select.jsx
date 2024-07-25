@@ -17,7 +17,16 @@ const StyledSelect = styled.select`
 
 const Select = forwardRef(
   (
-    { value, options, onChange, id, disabled, special = false, ...props },
+    {
+      value,
+      options,
+      onChange,
+      id,
+      disabled,
+      special = false,
+      selected,
+      ...props
+    },
     ref
   ) => {
     return (
@@ -27,6 +36,7 @@ const Select = forwardRef(
         onChange={onChange}
         disabled={disabled}
         id={id}
+        selected={selected}
         {...props}
       >
         {options.map((option) => (

@@ -46,7 +46,7 @@ function GuestTable() {
 
   if (isLoading) return <Spinner />;
 
-  if (!guests.length) return <Empty resourceName="guests" />;
+  if (!guests) return <Empty resourceName="guests" />;
 
   const filterValue = searchParams.get("searchValue");
 

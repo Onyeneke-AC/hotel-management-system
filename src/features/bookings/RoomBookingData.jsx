@@ -15,6 +15,7 @@ import { useGuest } from "../guests/useGuest";
 import Modal from "../../ui/Modal";
 import Menus from "../../ui/Menus";
 import CreateBookingForm from "./CreateBookingForm";
+import { useUser } from "../users/useUser";
 
 const Stacked = styled.div`
   display: flex;
@@ -59,19 +60,22 @@ function RoomBookingData({
     ID: roomBookingId,
     numberOfNights,
     checkedIn,
-    // checkedOut,
     startDate,
     endDate,
-    amount,
     roomID,
   } = roomBooking;
 
+  const { amount } = booking;
+
   const { guest, isLoadingGuest } = useGuest(customerID);
   const { isLoadingRoom, room } = useRoom(roomID);
+  const { isLoadingUser, user } = useUser(receptionist);
 
   const navigate = useNavigate();
 
   const { firstName, lastName, email } = guest || {};
+
+  const { firstName: first, lastName: last } = user || {};
 
   const roomData = room && room.length > 0 ? room[0] : null;
 
@@ -112,7 +116,13 @@ function RoomBookingData({
       </Stacked>{" "}
       <Tag type={statusToTagName[checkedIn]} $marks="mark">
         {checkedIn === true ? <HiOutlineCheck /> : <HiOutlineXMark />}{" "}
-        <span style={{ fontSize: "1rem" }}>{receptionist}</span>
+        {!isLoadingUser && (
+          <span style={{ fontSize: "1rem" }}>
+            {first === undefined || last === undefined
+              ? " booked by ..."
+              : " " + first + " " + last}
+          </span>
+        )}
       </Tag>
       <Amount>{formatCurrency(amount)}</Amount>
       <StyledOther>
@@ -137,6 +147,8 @@ function RoomBookingData({
               <CreateBookingForm
                 bookingToEdit={booking}
                 roomBookingId={roomBookingId}
+                roomId={roomID}
+                check={checkedIn}
               />
             </Modal.Window>
           </Menus.Menu>

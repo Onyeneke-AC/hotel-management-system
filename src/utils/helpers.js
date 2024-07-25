@@ -1,4 +1,4 @@
-import { formatDistance, isPast, parseISO } from "date-fns";
+import { formatDistance, parseISO } from "date-fns";
 import { differenceInDays } from "date-fns/esm";
 
 export const subtractDates = (dateStr1, dateStr2) =>
@@ -6,38 +6,70 @@ export const subtractDates = (dateStr1, dateStr2) =>
 
 export const formatDistanceFromNow = (dateStr) => {
   if (!dateStr || !Date.parse(dateStr)) {
-    console.error("Invalid date string:", dateStr);
     return "Invalid date";
   }
 
   try {
-    const parsedDate = dateStr;
-
+    const parsedDate = new Date(dateStr);
     const currentDate = new Date();
 
     let result;
-    if (isPast(parsedDate)) {
+    if (parsedDate < currentDate) {
       // For past dates
       result = formatDistance(parsedDate, currentDate, {
-        addSuffix: true,
+        addSuffix: false,
       });
+      result =
+        result.replace("about ", "").replace("less than", "Less than") + " ago";
     } else {
       // For future dates
       result = formatDistance(currentDate, parsedDate, {
-        addSuffix: true,
+        addSuffix: false,
       });
+      result = result.replace("in ", "In ") + " from now";
     }
 
-    return result
-      .replace("about ", "")
-      .replace("less than", "Less than")
-      .replace("almost", "Almost")
-      .replace("in ", "In ");
+    return result;
   } catch (error) {
-    console.error("Error parsing or formatting date:", dateStr, error);
     return "Error formatting date";
   }
 };
+
+// export const formatDistanceFromNow = (dateStr) => {
+//   if (!dateStr || !Date.parse(dateStr)) {
+//     // console.error("Invalid date string:", dateStr);
+//     return "Invalid date";
+//   }
+
+//   try {
+//     const parsedDate = new Date(dateStr); // Parse the date string
+
+//     const currentDate = new Date();
+
+//     let result;
+//     if (parsedDate < currentDate) {
+//       // For past dates
+//       result = formatDistance(parsedDate, currentDate, {
+//         addSuffix: true,
+//       });
+//     } else {
+//       // For future dates
+//       result = formatDistance(currentDate, parsedDate, {
+//         addSuffix: true,
+//       });
+//     }
+
+//     // Clean up the result
+//     return result
+//       .replace("about ", "")
+//       .replace("less than", "Less than")
+//       .replace("almost", "Almost")
+//       .replace("in ", "In ");
+//   } catch (error) {
+//     // console.error("Error parsing or formatting date:", dateStr, error);
+//     return "Error formatting date";
+//   }
+// };
 
 export const getToday = function (options = {}) {
   const today = new Date();

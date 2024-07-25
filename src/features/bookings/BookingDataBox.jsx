@@ -120,9 +120,9 @@ function BookingDataBox({ booking, roomBooking }) {
     isComplementary,
     CreatedAt,
     UpdatedAt,
-  } = booking;
+  } = booking || {};
 
-  const { numberOfNights, startDate, endDate, roomID } = roomBooking;
+  const { numberOfNights, startDate, endDate, roomID } = roomBooking || {};
 
   const { isLoadingRoom, room } = useRoom(roomID);
   const { guest, isLoadingGuest } = useGuest(customerID);
@@ -142,11 +142,11 @@ function BookingDataBox({ booking, roomBooking }) {
         </div>
 
         <p>
-          {format(new Date(startDate), "EEE, MMM dd yyyy")} (
-          {isToday(new Date(startDate))
+          {startDate && format(new Date(startDate), "EEE, MMM dd yyyy")} (
+          {startDate && isToday(new Date(startDate))
             ? "Today"
             : formatDistanceFromNow(startDate)}
-          ) &mdash; {format(new Date(endDate), "EEE, MMM dd yyyy")}
+          ) &mdash; {endDate && format(new Date(endDate), "EEE, MMM dd yyyy")}
         </p>
       </Header>
 

@@ -9,49 +9,6 @@ import { useState } from "react";
 import { PAGE_SIZE } from "../../utils/constants";
 import Pagination from "../../ui/Pagination";
 
-// const rooms = [
-//   {
-//     RoomBookings: { RoomId: 1 },
-//     Name: "001",
-//     Category: "Standard Luxury",
-//     Description: "1 bedroom standard",
-//     Price: 20000,
-//     status: "checked-in",
-//   },
-//   {
-//     RoomBookings: { RoomId: 2 },
-//     Name: "002",
-//     Category: "Deluxe Luxury",
-//     Description: "2 bedroom standard",
-//     Price: 25000,
-//     status: "unconfirmed",
-//   },
-//   {
-//     RoomBookings: { RoomId: 3 },
-//     Name: "003",
-//     Category: "Standard Aparte",
-//     Description: "3 bedroom standard",
-//     Price: 30000,
-//     status: "checked-out",
-//   },
-//   {
-//     RoomBookings: { RoomId: 4 },
-//     Name: "004",
-//     Category: "Standard Luxury",
-//     Description: "1 bedroom standard",
-//     Price: 35000,
-//     status: "unconfirmed",
-//   },
-//   {
-//     RoomBookings: { RoomId: 5 },
-//     Name: "005",
-//     Category: "Deluxe Aparte Luxury",
-//     Description: "1 bedroom standard",
-//     Price: 40000,
-//     status: "checked-in",
-//   },
-// ];
-
 function RoomTable() {
   const { rooms, isLoadingRooms } = useRooms();
   const [searchParams] = useSearchParams();
@@ -59,7 +16,7 @@ function RoomTable() {
 
   if (isLoadingRooms) return <Spinner />;
 
-  if (!rooms.length) return <Empty resourceName="rooms" />;
+  if (!rooms) return <Empty resourceName="rooms" />;
 
   const filterValue = searchParams.get("status") || "all";
 
@@ -74,7 +31,7 @@ function RoomTable() {
     filteredRooms = rooms.filter((room) => room.status === "cleaning");
 
   if (filterValue === "unavailable")
-    filteredRooms = rooms.filter((room) => room.status === "unavailable");
+    filteredRooms = rooms.filter((room) => room.status === "Unavailable");
 
   const roomsCount = filteredRooms.length;
 

@@ -1,3 +1,4 @@
+import { useUserDetails } from "../context/UserDetailsContext";
 import AddRoom from "../features/rooms/AddRoom";
 import RoomTable from "../features/rooms/RoomTable";
 import RoomTableOperations from "../features/rooms/RoomTableOperations";
@@ -5,6 +6,9 @@ import Heading from "../ui/Heading";
 import Row from "../ui/Row";
 
 function Rooms() {
+  const { userDetails } = useUserDetails();
+
+  const { isAdmin } = userDetails;
   return (
     <>
       <Row type="horizontal">
@@ -13,7 +17,7 @@ function Rooms() {
       </Row>
       <Row>
         <RoomTable />
-        <AddRoom />
+        {isAdmin && <AddRoom />}
       </Row>
     </>
   );

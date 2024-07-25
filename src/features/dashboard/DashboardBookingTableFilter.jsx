@@ -1,8 +1,10 @@
 import DatePicker from "react-datepicker";
-import Form from "../../ui/Form";
 import styled from "styled-components";
 import Heading from "../../ui/Heading";
-import { useState } from "react";
+import ButtonIcon from "../../ui/ButtonIcon";
+import { HiArrowUturnLeft } from "react-icons/hi2";
+import { useDateFilterBookings } from "../../context/DateFilterBookings";
+import { format } from "date-fns";
 
 const DateFilterForm = styled.form`
   padding: 10px 0;
@@ -24,12 +26,25 @@ const Legend = styled.legend`
   text-transform: uppercase;
 `;
 
+let today = new Date();
+let tomorrow = new Date(today);
+let yesterday = new Date(today);
+yesterday.setDate(yesterday.getDate() - 1);
+tomorrow.setDate(tomorrow.getDate() + 1);
+
 function DashboardBookingTableFilter() {
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const { startDate, endDate, setStartDate, setEndDate } =
+    useDateFilterBookings();
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    setStartDate(format(yesterday, "yyyy-MM-dd"));
+    setEndDate(format(tomorrow, "yyyy-MM-dd"));
+  }
 
   return (
-    <DateFilterForm>
+    <DateFilterForm onSubmit={handleSubmit}>
       <Fieldset>
         <Legend>
           <Heading as="h5">Filter Booking Date</Heading>
@@ -45,6 +60,9 @@ function DashboardBookingTableFilter() {
           onChange={(date) => setEndDate(date)}
           className="filter_date"
         />
+        <ButtonIcon type="submit filterGlass">
+          <HiArrowUturnLeft />
+        </ButtonIcon>
       </Fieldset>
     </DateFilterForm>
   );

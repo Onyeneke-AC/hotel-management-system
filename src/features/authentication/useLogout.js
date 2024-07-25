@@ -11,6 +11,8 @@ export function useLogout() {
     mutationFn: logoutApi,
     onSuccess: (data) => {
       queryClient.removeQueries();
+      window.localStorage.removeItem("accessToken");
+      window.localStorage.removeItem("userDetails");
       toast.success(data.message);
       navigate("/login", { replace: true });
     },

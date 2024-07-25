@@ -14,13 +14,13 @@ import { useRooms } from "../rooms/useRooms";
 import { useParams } from "react-router-dom";
 import { useCreateBooking } from "./useCreateBooking";
 import { useEditBooking } from "./useEditBooking";
-// import { useRoom } from "../rooms/useRoom";
+import { useUserDetails } from "../../context/UserDetailsContext";
+import { useRoom } from "../rooms/useRoom";
+import { useUser } from "../users/useUser";
 
 const BookingHeader = styled.div`
   margin-bottom: 30px;
 `;
-
-const receptionist = 2;
 
 const paymentOptions = [
   {
@@ -41,12 +41,16 @@ function CreateBookingForm({
   bookingToEdit = {},
   roomBookingId,
   onCloseModal,
+  roomId,
+  // check = false,
 }) {
   const {
     ID: updateId,
+    customerID,
     roomBookings,
+    receptionist: receptionistId,
     isPaid: isPaidDefault,
-    paymentMethod,
+    paymentMethod: payMeth,
     isComplementary: isComplemetaryDefault,
     ...updateValues
   } = bookingToEdit;
@@ -61,22 +65,34 @@ function CreateBookingForm({
 
   const { guestId } = useParams();
 
+  const customerId = parseInt(guestId || customerID);
+
   const roomNameRef = createRef();
   const isPaidRef = createRef();
-  const checkedInRef = createRef();
+  // const checkedInRef = createRef();
   const isComplementaryRef = createRef();
 
-  // const { room } = useRoom("");
+  const { user, isLoadingUser } = useUser(receptionistId);
+  const { userDetails } = useUserDetails();
   const { rooms, isLoadingRooms } = useRooms();
   const { createBooking, isCreating } = useCreateBooking();
   const { updateBooking, isUpdatingBooking } = useEditBooking();
+  const { room } = useRoom(roomId) || [];
 
-  const [roomName, setRoomName] = useState("17");
-  const [isPaid, setIsPaid] = useState(isPaidDefault);
-  const [checkedIn, setCheckedIn] = useState(
-    selectedBooking?.checkedIn || false
+  const { ID: receptionist, firstName, lastName } = userDetails || "";
+
+  const { firstName: first, lastName: last } = user || {};
+
+  const reception = isUpdateSession
+    ? first + " " + last
+    : firstName + " " + lastName;
+
+  const [roomName, setRoomName] = useState((room && room[0]?.name) || "17");
+  const [isPaid, setIsPaid] = useState(isPaidDefault || false);
+  // const [checkedIn, setCheckedIn] = useState(check);
+  const [isComplementary, setIsComplementary] = useState(
+    isComplemetaryDefault || false
   );
-  const [isComplementary, setIsComplementary] = useState(isComplemetaryDefault);
 
   const isWorking = isCreating || isUpdatingBooking;
 
@@ -88,35 +104,54 @@ function CreateBookingForm({
   let tomorrow = new Date(today);
   tomorrow.setDate(tomorrow.getDate() + 1);
 
-  const { register, control, watch, reset, handleSubmit, formState } = useForm({
+  const { register, control, reset, handleSubmit, formState } = useForm({
     defaultValues: isUpdateSession ? updateValues : {},
   });
 
   const { errors } = formState;
 
-  const startDate = watch("startDate");
-  const endDate = watch("endDate");
-
-  const selectedRoom = roomsArray.find((room) => room.name === roomName) || {};
+  const selectedRoom =
+    roomsArray.find((roome) => roome.name === roomName) || {};
 
   const roomPrice = selectedRoom?.price || 0;
   const roomID = selectedRoom?.ID || 0;
 
   function onSubmit(data) {
-    const { startDate, endDate, paymentMethod } = data;
+    const { startDate, numberOfNights, paymentMethod } = data;
 
     const mainData = {
-      customerID: parseInt(guestId),
+      customerID: customerId,
       receptionist,
       isPaid,
       paymentMethod,
       isComplementary,
-      roomBookings: [{ checkedIn, startDate, endDate, roomName, roomID }],
+      roomBookings: [
+        {
+          startDate,
+          numberOfNights: parseInt(numberOfNights),
+          roomName,
+          roomID,
+        },
+      ],
+    };
+
+    const updateMainData = {
+      customerID: customerId,
+      receptionist,
+      isPaid,
+      paymentMethod,
+      isComplementary,
+      startDate,
+      numberOfNights: parseInt(
+        numberOfNights || selectedBooking?.numberOfNights
+      ),
+      roomName,
+      roomID,
     };
 
     if (isUpdateSession) {
       updateBooking(
-        { newBookingData: mainData, id: updateId },
+        { newBookingData: updateMainData, bookingId: updateId, roomBookingId },
         {
           onSuccess: () => {
             reset();
@@ -149,7 +184,7 @@ function CreateBookingForm({
           <Input
             type="text"
             id="receptionist"
-            value={receptionist}
+            value={!isLoadingUser && reception}
             disabled
             {...register("receptionist")}
           />
@@ -167,13 +202,14 @@ function CreateBookingForm({
           />
         </FormRow>
 
-        <FormRow label="roomAmount">
+        <FormRow label="Room Amount">
           <Input type="number" id="roomAmount" value={roomPrice} disabled />
         </FormRow>
 
-        <FormRow label="paymentMethod" error={errors?.paymentMethod?.message}>
+        <FormRow label="Payment Method" error={errors?.paymentMethod?.message}>
           <Select
             id="paymentMethod"
+            defaultValue={payMeth}
             options={paymentOptions}
             disabled={isWorking}
             {...register("paymentMethod")}
@@ -188,18 +224,22 @@ function CreateBookingForm({
           <Controller
             name="startDate"
             control={control}
-            rules={{ required: "This field is required" }}
+            rules={{
+              required: isUpdateSession ? false : "This field is required",
+            }}
+            defaultValue={
+              isUpdateSession && new Date(selectedBooking?.startDate)
+            }
             render={({ field }) => (
               <DatePicker
                 selected={
                   field.value ||
-                  (isUpdateSession &&
-                    new Date(selectedBooking && selectedBooking.startDate))
+                  (isUpdateSession && new Date(selectedBooking?.startDate))
                 }
                 onChange={(date) => field.onChange(date)}
                 placeholderText="Select a start date"
                 minDate={today}
-                maxDate={endDate ? new Date(endDate - 1) : null}
+                // maxDate={endDate ? new Date(endDate - 1) : null}
                 disabled={isWorking}
                 id="startDate"
                 className="custom_date"
@@ -208,7 +248,23 @@ function CreateBookingForm({
           />
         </FormRow>
 
-        <FormRow label="End Date" type="date" error={errors?.endDate?.message}>
+        <FormRow
+          label="Number Of Nights"
+          error={errors?.numberOfNights?.message}
+        >
+          <Input
+            type="number"
+            id="numberOfNights"
+            step="1"
+            defaultValue={isUpdateSession && selectedBooking?.numberOfNights}
+            disabled={isWorking}
+            {...register("numberOfNights", {
+              required: isUpdateSession ? false : "This field is required",
+            })}
+          />
+        </FormRow>
+
+        {/* <FormRow label="End Date" type="date" error={errors?.endDate?.message}>
           <Controller
             name="endDate"
             control={control}
@@ -236,7 +292,7 @@ function CreateBookingForm({
               />
             )}
           />
-        </FormRow>
+        </FormRow> */}
 
         <FormRow type="check">
           <Checkbox
@@ -248,7 +304,7 @@ function CreateBookingForm({
           >
             Guest has paid
           </Checkbox>
-          <Checkbox
+          {/* <Checkbox
             id="checkedIn"
             ref={checkedInRef}
             checked={checkedIn}
@@ -256,7 +312,7 @@ function CreateBookingForm({
             onChange={() => setCheckedIn(!checkedIn)}
           >
             Check In (only after payment)
-          </Checkbox>
+          </Checkbox> */}
           <Checkbox
             id="isComplemetary"
             ref={isComplementaryRef}

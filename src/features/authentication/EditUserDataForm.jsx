@@ -1,81 +1,46 @@
-import { useState } from "react";
-
-import Button from "../../ui/Button";
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
-
-// import { useUser } from "./useUser";
-// import { useUpdateUser } from "./useUpdateUser";
+import { useUserDetails } from "../../context/UserDetailsContext";
 
 function EditUserDataForm() {
-  //   const {
-  //     user: {
-  //       email,
-  //       user_metadata: { fullName: currentFullName },
-  //     },
-  //   } = useUser();
+  const { userDetails } = useUserDetails();
 
-  //   const { updateUser, isUpdating } = useUpdateUser();
+  const {
+    firstName,
+    lastName,
+    phone,
+    emergencyContact,
+    email,
+    role,
+    employeeID,
+  } = userDetails;
 
-  //   const [fullName, setFullName] = useState(currentFullName);
-  const [fullName, setFullName] = useState();
-  const [phone, setPhone] = useState();
-  const email = "hfeh@hfb.com";
+  const fullName = firstName + " " + lastName;
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (!fullName) return;
-
-    // updateUser(
-    //   { fullName },
-    //   {
-    //     onSuccess: () => {
-    //       e.target.reset();
-    //     },
-    //   }
-    // );
-  }
-
-  function handleCancel() {
-    setFullName(fullName);
-    setPhone(phone);
   }
 
   return (
     <Form onSubmit={handleSubmit}>
-      <FormRow label="Email address">
-        <Input value={email} disabled />
+      <FormRow label="Employee ID">
+        <Input value={employeeID} id="employeeID" disabled />
       </FormRow>
       <FormRow label="Full name">
-        <Input
-          type="text"
-          value={fullName}
-          onChange={(e) => setFullName(e.target.value)}
-          id="fullName"
-          //   disabled={isUpdating}
-        />
+        <Input value={fullName} id="fullName" disabled />
+      </FormRow>
+      <FormRow label="Email address">
+        <Input value={email} id="email" disabled />
       </FormRow>
       <FormRow label="Phone">
-        <Input
-          type="text"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          id="phone"
-          //   disabled={isUpdating}
-        />
+        <Input value={phone} id="phone" disabled />
       </FormRow>
-
-      <FormRow>
-        <Button
-          type="reset"
-          variation="secondary"
-          //   disabled={isUpdating}
-          onClick={handleCancel}
-        >
-          Cancel
-        </Button>
-        <Button>Update account</Button>
+      <FormRow label="Emergency Contact">
+        <Input value={emergencyContact} id="emergencyContact" disabled />
+      </FormRow>
+      <FormRow label="Role">
+        <Input value={role} id="role" disabled />
       </FormRow>
     </Form>
   );

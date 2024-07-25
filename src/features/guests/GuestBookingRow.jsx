@@ -15,6 +15,7 @@ import Menus from "../../ui/Menus";
 import CreateBookingForm from "../bookings/CreateBookingForm";
 import { useNavigate } from "react-router-dom";
 import Table from "../../ui/Table";
+import { useUser } from "../users/useUser";
 
 const Stacked = styled.div`
   display: flex;
@@ -69,10 +70,13 @@ function GuestBookingRow({ booking }) {
   } = roomBookings?.[0] || {};
 
   const { room, isLoadingRoom } = useRoom(roomID);
+  const { isLoadingUser, user } = useUser(receptionist);
 
   const roomData = room && room.length > 0 ? room[0] : null;
 
   const roomName = roomData?.name || "Unknown Room";
+
+  const { firstName: first, lastName: last } = user || {};
 
   const statusToTagName = {
     true: "green",
@@ -108,7 +112,13 @@ function GuestBookingRow({ booking }) {
       </Tag>
       <Tag type={statusToTagName[checkedIn]} $marks="mark">
         {checkedIn === true ? <HiOutlineCheck /> : <HiOutlineXMark />}{" "}
-        <span style={{ fontSize: "1rem" }}>{receptionist}</span>
+        {!isLoadingUser && (
+          <span style={{ fontSize: "1rem" }}>
+            {first === undefined || last === undefined
+              ? " booked by ..."
+              : " " + first + " " + last}
+          </span>
+        )}
       </Tag>
       <StyledOther>
         <Modal>

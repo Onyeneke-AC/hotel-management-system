@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const ButtonIcon = styled.button`
   background: none;
@@ -16,6 +16,21 @@ const ButtonIcon = styled.button`
     height: 2.2rem;
     color: var(--color-brand-600);
   }
+
+  ${(props) =>
+    props.type === "submit filterGlass" &&
+    css`
+      background-color: var(--color-grey-100);
+      border-radius: var(--border-radius-xl);
+
+      &:focus {
+        border: none;
+      }
+
+      & svg {
+        color: var(--color-grey-300);
+      }
+    `}
 `;
 
 export default ButtonIcon;

@@ -14,6 +14,10 @@ import { Toaster } from "react-hot-toast";
 import Account from "./pages/Account";
 import Guests from "./pages/Guests";
 import Guest from "./pages/Guest";
+import { UserDetailsProvider } from "./context/UserDetailsContext";
+import { DateFilterBookingsProvider } from "./context/DateFilterBookings";
+import ProtectedRoute from "./ui/ProtectedRoute";
+import { ExportDateProvider } from "./context/ExportDate";
 
 function App() {
   const queryClient = new QueryClient({
@@ -25,50 +29,62 @@ function App() {
   });
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} />
-      <GlobalStyles />
-      <BrowserRouter>
-        <Routes>
-          <Route element={<AppLayout />}>
-            <Route index element={<Navigate replace to="dashboard" />} />
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="bookings" element={<Bookings />} />
-            <Route
-              path="booking/:bookingId/:roomBookingId"
-              element={<Booking />}
+    <ExportDateProvider>
+      <UserDetailsProvider>
+        <DateFilterBookingsProvider>
+          <QueryClientProvider client={queryClient}>
+            <ReactQueryDevtools initialIsOpen={false} />
+            <GlobalStyles />
+            <BrowserRouter>
+              <Routes>
+                <Route
+                  element={
+                    <ProtectedRoute>
+                      <AppLayout />
+                    </ProtectedRoute>
+                  }
+                >
+                  <Route index element={<Navigate replace to="dashboard" />} />
+                  <Route path="dashboard" element={<Dashboard />} />
+                  <Route path="bookings" element={<Bookings />} />
+                  <Route
+                    path="booking/:bookingId/:roomBookingId"
+                    element={<Booking />}
+                  />
+                  <Route path="guest/:guestId" element={<Guest />} />
+                  <Route path="rooms" element={<Rooms />} />
+                  <Route path="users" element={<Users />} />
+                  <Route path="guests" element={<Guests />} />
+                  <Route path="account" element={<Account />} />
+                </Route>
+                <Route path="login" element={<Login />} />
+                <Route path="*" element={<PageNotFound />} />
+              </Routes>
+            </BrowserRouter>
+            <Toaster
+              position="top-center"
+              gutter={10}
+              containerStyle={{ margin: "8px" }}
+              toastOptions={{
+                success: {
+                  duration: 3000,
+                },
+                error: {
+                  duration: 5000,
+                },
+                style: {
+                  fontSize: "16px",
+                  maxWidth: "500px",
+                  padding: "16px 24px",
+                  backgroundColor: "var(--color-grey-0)",
+                  color: "var(--color-grey-700)",
+                },
+              }}
             />
-            <Route path="guest/:guestId" element={<Guest />} />
-            <Route path="rooms" element={<Rooms />} />
-            <Route path="users" element={<Users />} />
-            <Route path="guests" element={<Guests />} />
-            <Route path="account" element={<Account />} />
-          </Route>
-          <Route path="login" element={<Login />} />
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
-      </BrowserRouter>
-      <Toaster
-        position="top-center"
-        gutter={10}
-        containerStyle={{ margin: "8px" }}
-        toastOptions={{
-          success: {
-            duration: 3000,
-          },
-          error: {
-            duration: 5000,
-          },
-          style: {
-            fontSize: "16px",
-            maxWidth: "500px",
-            padding: "16px 24px",
-            backgroundColor: "var(--color-grey-0)",
-            color: "var(--color-grey-700)",
-          },
-        }}
-      />
-    </QueryClientProvider>
+          </QueryClientProvider>
+        </DateFilterBookingsProvider>
+      </UserDetailsProvider>
+    </ExportDateProvider>
   );
 }
 

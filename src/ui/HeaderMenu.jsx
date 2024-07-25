@@ -4,6 +4,8 @@ import ButtonIcon from "./ButtonIcon";
 import { useNavigate } from "react-router-dom";
 import { HiOutlineUser } from "react-icons/hi2";
 import AddBooking from "../features/bookings/AddBooking";
+import ExportHeader from "../features/bookings/ExportHeader";
+import { useUserDetails } from "../context/UserDetailsContext";
 
 const StyledHeaderMenu = styled.ul`
   display: flex;
@@ -11,8 +13,14 @@ const StyledHeaderMenu = styled.ul`
   gap: 0.4rem;
 `;
 
+// NB: The add booking here is actually used to add guest
+
 function HeaderMenu() {
+  const { userDetails } = useUserDetails();
   const navigate = useNavigate();
+
+  const { isAdmin } = userDetails;
+
   return (
     <StyledHeaderMenu>
       <li>
@@ -23,6 +31,11 @@ function HeaderMenu() {
           <HiOutlineUser />
         </ButtonIcon>
       </li>
+      {isAdmin && (
+        <li>
+          <ExportHeader />
+        </li>
+      )}
       <li>
         <Logout />
       </li>

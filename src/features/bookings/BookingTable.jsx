@@ -1,70 +1,51 @@
+import { useState } from "react";
+
+import { useDateFilterBookings } from "../../context/DateFilterBookings";
 import { useBookings } from "./useBookings";
+import { PAGE_SIZE } from "../../utils/constants";
 
 import BookingRow from "./BookingRow";
 import Table from "../../ui/Table";
 import Empty from "../../ui/Empty";
 import Menus from "../../ui/Menus";
 import Spinner from "../../ui/Spinner";
-import { useState } from "react";
-import { PAGE_SIZE } from "../../utils/constants";
 import Pagination from "../../ui/Pagination";
 
-// const bookings = [
-//   {
-//     customerID: 1,
-//     bookingID: 1,
-//     roomName: "001",
-//     receptionist: "Anna baby",
-//     amount: 300,
-//     isPaid: false,
-//     customer: { firstName: "Anna baby", email: "anthony@gmail.com" },
-//     roomBookings: {
-//       checkedIn: true,
-//       numberOfNights: "2",
-//       startDate: "2024-06-16T00:00:00",
-//       endDate: "2024-06-18T00:00:00",
-//     },
-//   },
-//   {
-//     bookingID: 2,
-//     roomBookings: {
-//       checkedIn: false,
-//       numberOfNights: "20",
-//       startDate: "2024-06-20T00:00:00",
-//       endDate: "2024-07-18T00:00:00",
-//     },
-//     roomName: "002",
-//     amount: 500,
-//     isPaid: true,
-//     receptionist: "Osi baby",
-//     customerID: 2,
-//     customer: { firstName: "Gold", email: "gkv@hgjh.com" },
-//   },
-//   {
-//     bookingID: 3,
-//     roomBookings: {
-//       checkedIn: true,
-//       numberOfNights: "10",
-//       startDate: "2024-06-18T00:00:00",
-//       endDate: "2024-06-24T00:00:00",
-//     },
-//     roomName: "003",
-//     amount: 50,
-//     isPaid: false,
-//     receptionist: "Erica baby",
-//     customerID: 3,
-//     customer: { firstName: "Teni", email: "CDEewfw12@hffj" },
-//   },
-// ];
-
 function BookingTable() {
-  const { bookings, isLoading } = useBookings();
+  const { startDate, endDate } = useDateFilterBookings();
+  const { bookings: loadedBookings, isLoading } = useBookings(
+    startDate,
+    endDate
+  );
+
+  console.log(loadedBookings);
 
   const [currentPage, setCurrentPage] = useState(1);
 
   if (isLoading) return <Spinner />;
 
-  if (!bookings.length) return <Empty resourceName="bookings" />;
+  const bookings = loadedBookings || [];
+
+  if (!bookings)
+    return <Empty resourceName="bookings within this date range" />;
+
+  // const filterStartDate = new Date(startDate) || null;
+  // const filterEndDate = new Date(endDate) || null;
+
+  // let filteredBookings = bookings;
+
+  // if (filterStartDate && filterEndDate)
+  //   filteredBookings = bookings.filter(
+  //     (booking) =>
+  //       new Date(booking.roomBookings[0].startDate) >= filterStartDate &&
+  //       new Date(booking.roomBookings[0].endDate) <= filterEndDate
+  //   );
+
+  // const bookingsCount = filteredBookings.length;
+
+  // const startIndex = (currentPage - 1) * PAGE_SIZE;
+  // const endIndex = startIndex + PAGE_SIZE;
+  // const paginatedBookings = filteredBookings.slice(startIndex, endIndex);
 
   const bookingsCount = bookings.length;
 
@@ -89,10 +70,16 @@ function BookingTable() {
         </Table.Header>
 
         <Table.Body
+          // data={
+          //   filterStartDate && filterEndDate
+          //     ? filteredBookings
+          //     : paginatedBookings
+          // }
           data={paginatedBookings}
           render={(booking) => (
             <BookingRow key={booking.ID} booking={booking} />
           )}
+          empty="There is no booking within this date range"
         />
         <Table.Footer>
           <Pagination

@@ -6,6 +6,7 @@ import {
 } from "react-icons/hi2";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
+import { useUserDetails } from "../context/UserDetailsContext";
 
 const NavList = styled.ul`
   display: flex;
@@ -52,6 +53,11 @@ const StyledNavLink = styled(NavLink)`
 `;
 
 function MainNav() {
+  const { userDetails } = useUserDetails();
+
+  const { isAdmin } = userDetails;
+
+  // const isAdmin = true;
   return (
     <nav>
       <NavList>
@@ -73,12 +79,14 @@ function MainNav() {
             <span>Guests</span>
           </StyledNavLink>
         </li>
-        <li>
-          <StyledNavLink to="/users">
-            <HiOutlineUsers />
-            <span>Users</span>
-          </StyledNavLink>
-        </li>
+        {isAdmin && (
+          <li>
+            <StyledNavLink to="/users">
+              <HiOutlineUsers />
+              <span>Users</span>
+            </StyledNavLink>
+          </li>
+        )}
       </NavList>
     </nav>
   );

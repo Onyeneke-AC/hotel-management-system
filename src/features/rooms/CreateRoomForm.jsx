@@ -9,6 +9,7 @@ import Select from "../../ui/Select";
 import { useForm } from "react-hook-form";
 import { useCreateRoom } from "./useCreateRoom";
 import { useUpdateRoom } from "./useUpdateRoom";
+import { useUserDetails } from "../../context/UserDetailsContext";
 
 const RoomHeader = styled.div`
   margin-bottom: 30px;
@@ -24,12 +25,16 @@ const statusOptions = [
     label: "Cleaning",
   },
   {
-    value: "unavailable",
+    value: "Unavailable",
     label: "Unavailable",
   },
 ];
 
 function CreateRoomForm({ roomToEdit = {}, onCloseModal }) {
+  const { userDetails } = useUserDetails();
+
+  const { isAdmin } = userDetails;
+
   const { createRoom, isCreatingRoom } = useCreateRoom();
   const { updateRoom, isUpdatingRoom } = useUpdateRoom();
 
@@ -86,7 +91,7 @@ function CreateRoomForm({ roomToEdit = {}, onCloseModal }) {
           <Input
             type="text"
             id="name"
-            disabled={isWorking}
+            disabled={isWorking || !isAdmin}
             {...register("name", { required: "This field is required" })}
           />
         </FormRow>
@@ -95,7 +100,7 @@ function CreateRoomForm({ roomToEdit = {}, onCloseModal }) {
           <Input
             type="text"
             id="category"
-            disabled={isWorking}
+            disabled={isWorking || !isAdmin}
             {...register("category", { required: "This field is required" })}
           />
         </FormRow>
@@ -104,7 +109,7 @@ function CreateRoomForm({ roomToEdit = {}, onCloseModal }) {
           <Input
             type="number"
             id="price"
-            disabled={isWorking}
+            disabled={isWorking || !isAdmin}
             {...register("price", { required: "This field is required" })}
           />
         </FormRow>
@@ -113,7 +118,7 @@ function CreateRoomForm({ roomToEdit = {}, onCloseModal }) {
           <Textarea
             type="text"
             id="description"
-            disabled={isWorking}
+            disabled={isWorking || !isAdmin}
             {...register("description", { required: "This field is required" })}
           />
         </FormRow>

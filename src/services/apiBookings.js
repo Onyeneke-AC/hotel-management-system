@@ -1,11 +1,18 @@
+// import { format } from "date-fns";
+
 const API_URL = "http://127.0.0.1:3000/api/v1";
 
-export async function getBookings() {
+export async function getBookings(startDate, endDate) {
   try {
-    const res = await fetch(`${API_URL}/bookings`);
+    const res = await fetch(
+      `${API_URL}/bookings?start=${new Date(
+        startDate
+      ).toISOString()}&end=${new Date(endDate).toISOString()}`
+    );
+    // const res = await fetch(`${API_URL}/bookings`);
 
     if (!res.ok) {
-      throw Error("Error loading the data");
+      throw Error("Error loading the bookings");
     }
 
     const data = await res.json();
@@ -21,7 +28,7 @@ export async function getBooking(id) {
     const res = await fetch(`${API_URL}/bookings/${id}`);
 
     if (!res.ok) {
-      throw Error("Error loading the data");
+      throw Error("Error loading the booking data");
     }
 
     const data = await res.json();
@@ -39,7 +46,7 @@ export async function getRoomBooking(bookingId, roomBookingId) {
     );
 
     if (!res.ok) {
-      throw Error("Error loading the data");
+      throw Error("Error loading the booking data");
     }
 
     const data = await res.json();
@@ -50,16 +57,23 @@ export async function getRoomBooking(bookingId, roomBookingId) {
   }
 }
 
-export async function createAndUpdateBooking(newBookingData, id) {
+export async function createAndUpdateBooking(
+  newBookingData,
+  bookingId,
+  roomBookingId
+) {
   try {
-    if (id) {
-      const res = await fetch(`${API_URL}/bookings/${id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newBookingData),
-      });
+    if (bookingId) {
+      const res = await fetch(
+        `${API_URL}/bookings/booking/${bookingId}/roomBooking/${roomBookingId}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newBookingData),
+        }
+      );
 
       if (!res.ok) {
         const errorResponse = await res.json();
@@ -67,7 +81,7 @@ export async function createAndUpdateBooking(newBookingData, id) {
       }
     }
 
-    if (!id) {
+    if (!bookingId) {
       const res = await fetch(`${API_URL}/bookings`, {
         method: "POST",
         headers: {
@@ -91,8 +105,6 @@ export async function createAndUpdateBooking(newBookingData, id) {
   }
 }
 
-// export async function editBooking(editedBookingData, id) {}
-
 export async function deleteBooking(bookingId) {
   try {
     const res = await fetch(`${API_URL}/bookings/${bookingId}`, {
@@ -100,7 +112,7 @@ export async function deleteBooking(bookingId) {
     });
 
     if (!res.ok) {
-      throw Error("Error deleting the data");
+      throw Error("Error deleting the booking");
     }
   } catch (error) {
     throw error;

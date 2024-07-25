@@ -18,6 +18,18 @@ const Form = styled.form`
       overflow-y: auto;
     `};
 
+  ${(props) =>
+    props.type === "exportModal" &&
+    css`
+      width: 60rem;
+      max-height: 500px;
+      overflow-y: auto;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 30px;
+    `};
+
   /* overflow: scroll; */
   font-size: 1.4rem;
 `;

@@ -1,20 +1,22 @@
 // for the current user
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { editCurrentUser } from "../../services/apiAuth";
+import { updateCurrentUserPassword } from "../../services/apiAuth";
 import toast from "react-hot-toast";
 
-export function useEditUser() {
+export function useEditUserPassword() {
   const queryClient = useQueryClient();
 
-  const { mutate: editUser, isLoading: isUpdating } = useMutation({
-    mutationFn: editCurrentUser,
-    onSuccess: (user) => {
-      queryClient.setQueryData(["users"], user);
-      toast.success("User account successfully updated");
-    },
-    onError: (err) => {
-      toast.error(err.message);
-    },
-  });
-  return { editUser, isUpdating };
+  const { mutate: editUserPassword, isLoading: isUpdatingPassword } =
+    useMutation({
+      mutationFn: ({ passwordData, id }) =>
+        updateCurrentUserPassword(passwordData, id),
+      onSuccess: (user) => {
+        queryClient.setQueryData(["user"], user);
+        toast.success("User password successfully updated");
+      },
+      onError: (err) => {
+        toast.error(err.message);
+      },
+    });
+  return { editUserPassword, isUpdatingPassword };
 }

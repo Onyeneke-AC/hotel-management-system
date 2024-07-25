@@ -71,27 +71,56 @@ export async function getUsers() {
   }
 }
 
-export async function getCurrentUser() {}
+export async function getUserById(id) {
+  try {
+    const res = await fetch(`${API_URL}/users/${id}`);
+
+    if (!res.ok) {
+      throw Error("Error getting the receptionist");
+    }
+
+    const data = await res.json();
+
+    return data;
+  } catch (err) {
+    throw err;
+  }
+}
+
+export async function exportBooking(start, end) {
+  try {
+    const res = await fetch(
+      `${API_URL}/users/summary?start=${start}&end=${end}`
+    );
+
+    if (!res.ok) {
+      throw Error("Error exporting the bookings");
+    }
+
+    const data = await res.json();
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
 
 // for the current user
-export async function editCurrentUser({ password, fullName }) {}
+export async function updateCurrentUserPassword(passwordData, id) {
+  try {
+    const res = await fetch(`${API_URL}/users/${id}/changePassword`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(passwordData),
+    });
 
-// // for the admin
-// export async function updateUser(userData, id) {
-//   try {
-//     const res = await fetch(`${API_URL}/users/${id}`, {
-//       method: "PATCH",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(userData),
-//     });
-
-//     if (!res.ok) throw Error("Failed updating user");
-//   } catch (error) {
-//     throw error;
-//   }
-// }
+    if (!res.ok) throw Error("Failed updating password");
+  } catch (error) {
+    throw error;
+  }
+}
 
 export async function deleteUser(userID) {
   try {
@@ -118,8 +147,6 @@ export async function logout() {
     }
 
     const data = await res.json();
-
-    console.log(data);
 
     return data;
   } catch (error) {
