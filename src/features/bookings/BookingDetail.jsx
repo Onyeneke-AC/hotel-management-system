@@ -29,6 +29,7 @@ import {
 } from "react-icons/hi2";
 import { useUserDetails } from "../../context/UserDetailsContext";
 import { useUser } from "../users/useUser";
+import CheckoutModal from "../../ui/CheckoutModal";
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -99,7 +100,7 @@ function BookingDetail() {
       <BookingDataBox booking={booking} roomBooking={roomBooking} />
 
       <ButtonGroup>
-        {checkedIn === true && checkedOut === false && (
+        {/* {checkedIn === true && checkedOut === false && (
           <Button
             icon={<HiArrowUpOnSquare />}
             disabled={isCheckingOut}
@@ -109,7 +110,46 @@ function BookingDetail() {
           >
             Check out
           </Button>
+        )} */}
+
+        {checkedIn === true && checkedOut === false && (
+          <Modal>
+            <Modal.Open opens="check-out">
+              <Button icon={<HiArrowUpOnSquare />} disabled={isCheckingOut}>
+                Check out
+              </Button>
+            </Modal.Open>
+
+            <Modal.Window name="check-out">
+              <CheckoutModal
+                id={bookingId}
+                disabled={isCheckingOut}
+                onConfirm={() => {
+                  checkout(roomBookingId);
+                }}
+              />
+            </Modal.Window>
+          </Modal>
         )}
+
+        {/* <Modal>
+          <Modal.Open opens="check-out">
+            <Button icon={<HiArrowUpOnSquare />} disabled={isCheckingOut}>
+              Check out
+            </Button>
+          </Modal.Open>
+
+          <Modal.Window name="check-out">
+            <CheckoutModal
+              id={bookingId}
+              disabled={isCheckingOut}
+              onConfirm={() => {
+                checkout(roomBookingId);
+              }}
+            />
+          </Modal.Window>
+        </Modal> */}
+
         {isAdmin && role.toLowerCase() === "owner" && (
           <Modal>
             <Modal.Open opens="delete">
